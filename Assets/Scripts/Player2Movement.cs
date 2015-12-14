@@ -24,6 +24,8 @@ public class Player2Movement : MonoBehaviour {
 	public Rigidbody myRigidbody;
 	public Transform projectileSpawn;
 	public GameObject projectile;
+	public GameObject renderSprite;
+	public GameObject flashMuzzle;
 
 	//Camera
 	public Camera mainCamera;
@@ -43,6 +45,7 @@ public class Player2Movement : MonoBehaviour {
 		
 		if (Input.GetKeyDown (KeyCode.LeftShift) && ammo && !grounded) {
 			Instantiate(projectile, projectileSpawn.position, projectileSpawn.rotation);
+			StartCoroutine(muzzleFlash());
 			ammo = false;
 		}
 		
@@ -66,7 +69,8 @@ public class Player2Movement : MonoBehaviour {
 				else{
 					if(dive){
 						hasDived = true;
-						GetComponentInChildren<SpriteRenderer>().sprite = diving;
+						//GetComponentInChildren<SpriteRenderer>().sprite = diving;
+						renderSprite.GetComponent<SpriteRenderer>().sprite = diving;
 						myRigidbody.velocity = Vector3.zero;
 						myRigidbody.AddForce(0, -jumpHeight,0);
 					}
@@ -77,11 +81,13 @@ public class Player2Movement : MonoBehaviour {
 		if (transform.position.y > 1) {
 			grounded = false;
 			if(!hasDived && !hasDoubleJumped){
-				GetComponentInChildren<SpriteRenderer>().sprite = jumping;
+				//GetComponentInChildren<SpriteRenderer>().sprite = jumping;
+				renderSprite.GetComponent<SpriteRenderer>().sprite = jumping;
 			}
 		} else {
 			//Debug.Log("On za ground");
-			GetComponentInChildren<SpriteRenderer>().sprite = idle;
+			//GetComponentInChildren<SpriteRenderer>().sprite = idle;
+			renderSprite.GetComponent<SpriteRenderer>().sprite = idle;
 			grounded = true;
 		}
 		
@@ -91,6 +97,14 @@ public class Player2Movement : MonoBehaviour {
 
 		StartCoroutine (startAnim ());
 	}
+
+	IEnumerator muzzleFlash(){
+		flashMuzzle.SetActive (true);
+		yield return new WaitForSeconds (0.1f);{
+			flashMuzzle.SetActive(false);
+		}
+	}
+
 	IEnumerator startAnim(){
 		GetComponent<Animator> ().SetBool ("JumpedNow", true);
 		yield return new WaitForSeconds (0.2f);{
@@ -98,11 +112,11 @@ public class Player2Movement : MonoBehaviour {
 		}
 	}
 	IEnumerator doubleJumping(){
-		GetComponentInChildren<SpriteRenderer> ().sprite = idle;
-		
+		//GetComponentInChildren<SpriteRenderer> ().sprite = idle;
+		renderSprite.GetComponent<SpriteRenderer>().sprite = idle;
 		yield return new WaitForSeconds(0.2f);{
-			
-			GetComponentInChildren<SpriteRenderer>().sprite = jumping;
+			renderSprite.GetComponent<SpriteRenderer>().sprite = jumping;
+		//	GetComponentInChildren<SpriteRenderer>().sprite = jumping;
 		}
 	}
 	

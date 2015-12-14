@@ -15,6 +15,8 @@ public class Player1Movement : MonoBehaviour {
 	public Sprite idle;
 	public Sprite jumping;
 	public Sprite diving;
+	public GameObject muzzleFlash;
+	public GameObject renderSprite;
 	//floats
 	public float jumpHeight;
 
@@ -27,18 +29,22 @@ public class Player1Movement : MonoBehaviour {
 	public Camera mainCamera;
 	// Use this for initialization
 	void Start () {
-		
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (!isInPlayed) {
+			if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.LeftShift)){
+				Application.LoadLevel(1);
+			}
 			if (!canPlayed) {
 				return;
 			}
 		}
 
 		if (Input.GetKeyDown (KeyCode.Space) && ammo && !grounded) {
+			StartCoroutine(MuzzleFlash());
 			Instantiate(projectile, projectileSpawn.position, projectileSpawn.rotation);
 			ammo = false;
 		}
@@ -63,7 +69,8 @@ public class Player1Movement : MonoBehaviour {
 				else{
 					if(dive){
 						hasDived = true;
-						GetComponentInChildren<SpriteRenderer>().sprite = diving;
+						//GetComponentInChildren<SpriteRenderer>().sprite = diving;
+						renderSprite.GetComponent<SpriteRenderer>().sprite = diving;
 						myRigidbody.velocity = Vector3.zero;
 						myRigidbody.AddForce(0, -jumpHeight,0);
 					}
@@ -74,11 +81,14 @@ public class Player1Movement : MonoBehaviour {
 		if (transform.position.y > 1) {
 			grounded = false;
 			if(!hasDived && !hasDoubleJumped){
-			GetComponentInChildren<SpriteRenderer>().sprite = jumping;
+			
+			//GetComponentInChildren<SpriteRenderer>().sprite = jumping;
+			renderSprite.GetComponent<SpriteRenderer>().sprite = jumping;
 			}
 		} else {
 			//Debug.Log("On za ground");
-			GetComponentInChildren<SpriteRenderer>().sprite = idle;
+			//GetComponentInChildren<SpriteRenderer>().sprite = idle;
+			renderSprite.GetComponent<SpriteRenderer>().sprite = idle;
 			grounded = true;
 		}
 		
@@ -87,6 +97,14 @@ public class Player1Movement : MonoBehaviour {
 		StartCoroutine (startAnim ());
 		FindObjectOfType<Player2Movement> ().onPlayed ();
 		StartCoroutine (loadScene ());
+	}
+
+	IEnumerator MuzzleFlash(){
+		muzzleFlash.SetActive (true);
+		yield return new WaitForSeconds (0.1f);{
+			muzzleFlash.SetActive(false);
+
+		}
 	}
 
 	IEnumerator loadScene(){
@@ -102,11 +120,11 @@ public class Player1Movement : MonoBehaviour {
 	}
 
 	IEnumerator doubleJumping(){
-		GetComponentInChildren<SpriteRenderer> ().sprite = idle;
-
+		//GetComponentInChildren<SpriteRenderer> ().sprite = idle;
+		renderSprite.GetComponent<SpriteRenderer>().sprite = idle;
 		yield return new WaitForSeconds(0.2f);{
-		
-		GetComponentInChildren<SpriteRenderer>().sprite = jumping;
+			renderSprite.GetComponent<SpriteRenderer>().sprite = jumping;
+		//GetComponentInChildren<SpriteRenderer>().sprite = jumping;
 		}
 	}
 }
