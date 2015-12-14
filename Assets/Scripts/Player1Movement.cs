@@ -3,12 +3,14 @@ using System.Collections;
 
 public class Player1Movement : MonoBehaviour {
 	//booleans 
+	public bool isInPlayed;
 	bool grounded = true;
 	bool doubleJump = false;
 	bool ammo;
 	bool dive = false;
 	bool hasDived;
 	bool hasDoubleJumped;
+	public bool canPlayed;
 	//sprites
 	public Sprite idle;
 	public Sprite jumping;
@@ -30,8 +32,10 @@ public class Player1Movement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (!mainCamera.GetComponent<GameController> ().hasFinishedAnim) {
-			return;
+		if (!isInPlayed) {
+			if (!canPlayed) {
+				return;
+			}
 		}
 
 		if (Input.GetKeyDown (KeyCode.Space) && ammo && !grounded) {
@@ -78,6 +82,23 @@ public class Player1Movement : MonoBehaviour {
 			grounded = true;
 		}
 		
+	}
+	public void onPlay(){
+		StartCoroutine (startAnim ());
+		FindObjectOfType<Player2Movement> ().onPlayed ();
+		StartCoroutine (loadScene ());
+	}
+
+	IEnumerator loadScene(){
+		yield return new WaitForSeconds (0.8f);{
+			Application.LoadLevel(1);
+		}
+	}
+	IEnumerator startAnim(){
+		GetComponent<Animator> ().SetBool ("JumpNow", true);
+		yield return new WaitForSeconds (0.2f);{
+			GetComponent<Animator> ().SetBool ("JumpNow", false);
+		}
 	}
 
 	IEnumerator doubleJumping(){

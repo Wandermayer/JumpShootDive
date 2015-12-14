@@ -5,12 +5,14 @@ public class Player2Movement : MonoBehaviour {
 	
 	
 	//booleans 
+	public bool isInPlay;
 	bool grounded = true;
 	bool doubleJump = false;
 	bool ammo;
 	bool dive = false;
 	bool hasDived;
 	bool hasDoubleJumped;
+	public bool canPlay;
 	//sprites
 	public Sprite idle;
 	public Sprite jumping;
@@ -32,8 +34,10 @@ public class Player2Movement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (!mainCamera.GetComponent<GameController> ().hasFinishedAnim) {
-			return;
+		if (!isInPlay) {
+			if (!canPlay) {
+				return;
+			}
 		}
 		
 		
@@ -82,7 +86,17 @@ public class Player2Movement : MonoBehaviour {
 		}
 		
 	}
-	
+
+	public void onPlayed(){
+
+		StartCoroutine (startAnim ());
+	}
+	IEnumerator startAnim(){
+		GetComponent<Animator> ().SetBool ("JumpedNow", true);
+		yield return new WaitForSeconds (0.2f);{
+			GetComponent<Animator> ().SetBool ("JumpedNow", false);
+		}
+	}
 	IEnumerator doubleJumping(){
 		GetComponentInChildren<SpriteRenderer> ().sprite = idle;
 		
