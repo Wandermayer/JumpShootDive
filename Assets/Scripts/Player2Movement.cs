@@ -13,7 +13,9 @@ public class Player2Movement : MonoBehaviour {
 	bool hasDived;
 	bool hasDoubleJumped;
 	public bool canPlay;
+	public bool isDead;
 	//sprites
+	public Sprite dead;
 	public Sprite idle;
 	public Sprite jumping;
 	public Sprite diving;
@@ -31,16 +33,21 @@ public class Player2Movement : MonoBehaviour {
 	public Camera mainCamera;
 	// Use this for initialization
 	void Start () {
-
+		canPlay = true;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (!isInPlay) {
-			if (!canPlay) {
+
+		if (isDead) {
+			StartCoroutine(deathSequence());
+			
+		}
+		if (!canPlay || isDead) {
 				return;
 			}
-		}
+
+		
 		
 		
 		if (Input.GetKeyDown (KeyCode.LeftShift) && ammo && !grounded) {
@@ -91,6 +98,13 @@ public class Player2Movement : MonoBehaviour {
 			grounded = true;
 		}
 		
+	}
+
+	IEnumerator deathSequence(){
+		renderSprite.GetComponent<SpriteRenderer> ().sprite = dead;
+		yield return new WaitForSeconds (2f);{
+			isDead = false;
+		}
 	}
 
 	public void onPlayed(){

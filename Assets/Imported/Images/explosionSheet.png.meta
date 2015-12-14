@@ -1,9 +1,15 @@
 fileFormatVersion: 2
 guid: 7efcac9cee656416581b6c994d6e65d6
-timeCreated: 1450080119
+timeCreated: 1450102002
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: explosionSheet_0
+    21300002: explosionSheet_1
+    21300004: explosionSheet_2
+    21300006: explosionSheet_3
+    21300008: explosionSheet_4
+    21300010: explosionSheet_5
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -30,15 +36,15 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
-    aniso: -1
+    aniso: 16
     mipBias: -1
-    wrapMode: -1
-  nPOTScale: 1
+    wrapMode: 1
+  nPOTScale: 0
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
   allowsAlphaSplitting: 0
-  spriteMode: 0
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -46,10 +52,70 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
   alphaIsTransparency: 1
-  textureType: -1
+  textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites: []
+    sprites:
+    - name: explosionSheet_0
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 256
+        width: 241
+        height: 244
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: explosionSheet_1
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 256
+        width: 241
+        height: 244
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: explosionSheet_2
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 12
+        width: 224
+        height: 224
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: explosionSheet_3
+      rect:
+        serializedVersion: 2
+        x: 318
+        y: 150
+        width: 52
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: explosionSheet_4
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 108
+        width: 106
+        height: 124
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: explosionSheet_5
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 20
+        width: 132
+        height: 116
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
   assetBundleName: 

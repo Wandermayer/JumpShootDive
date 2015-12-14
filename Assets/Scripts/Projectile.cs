@@ -18,17 +18,23 @@ public class Projectile : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+
+
 		transform.position = new Vector3 (transform.position.x + velocity, transform.position.y, transform.position.z);
 
 	}
 
 	void OnTriggerEnter(Collider other){
-		if (other.tag == "Player1") {
+		if (other.tag == "player1Collider" ) {
+			FindObjectOfType<Player2Movement>().isDead = true;
 			Debug.Log("Player2 wins!");
+			FindObjectOfType<GameController>().player2Score ++;
 		}
 		else{
-			if(other.tag == "Player2"){
+			if(other.tag != "Player1"){
+				FindObjectOfType<Player1Movement>().isDead = true;
 				Debug.Log ("Player1 Wins");
+				FindObjectOfType<GameController>().player1Score ++;
 			}
 		}
 	}
