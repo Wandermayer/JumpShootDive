@@ -2,8 +2,8 @@
 using System.Collections;
 
 public class Player2Movement : MonoBehaviour {
-	
-	
+	//integers
+	public int characterIndexNumber;
 	//booleans 
 	public bool isInPlay;
 	bool grounded = true;
@@ -16,6 +16,9 @@ public class Player2Movement : MonoBehaviour {
 	public bool canPlay;
 	public bool isDead;
 	//sprites
+	public Sprite[] character1;
+	public Sprite[] character2;
+	public Sprite[] character3;
 	public Sprite dead;
 	public Sprite idle;
 	public Sprite jumping;
@@ -37,6 +40,23 @@ public class Player2Movement : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		canPlay = true;
+		characterIndexNumber = FindObjectOfType<CharacterPrefs>().player1Pref;
+		if (characterIndexNumber == 1) {
+			idle = character1 [0];
+			jumping = character1 [1];
+			diving = character1 [2];
+			dead = character1 [3];
+		} else if (characterIndexNumber == 2) {
+			idle = character2 [0];
+			jumping = character2 [1];
+			diving = character2 [2];
+			dead = character2 [3];
+		} else {
+			idle = character3[0];
+			jumping = character3[1];
+			diving = character3[2];
+			dead = character3[3];
+		}
 
 	}
 	

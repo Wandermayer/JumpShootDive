@@ -2,6 +2,8 @@
 using System.Collections;
 
 public class Player1Movement : MonoBehaviour {
+	//Integers
+	public int characterIndexNumber;
 	//booleans 
 	public bool isInPlayed;
 	bool grounded = true;
@@ -14,14 +16,14 @@ public class Player1Movement : MonoBehaviour {
 	public bool isDead;
 	bool playedLandingEffect;
 	//sprites
+	public Sprite[] character1;
+	public Sprite[] character2;
+	public Sprite[] character3;
 	public Sprite dead;
 	public Sprite idle;
 	public Sprite jumping;
 	public Sprite diving;
-	public GameObject muzzleFlash;
-	public GameObject renderSprite;
-	public ParticleSystem deathEffect;
-	public ParticleSystem landingEffect;
+
 	//floats
 	public float jumpHeight;
 
@@ -29,12 +31,33 @@ public class Player1Movement : MonoBehaviour {
 	public Rigidbody myRigidbody;
 	public Transform projectileSpawn;
 	public GameObject projectile;
+	public GameObject muzzleFlash;
+	public GameObject renderSprite;
+	public ParticleSystem deathEffect;
+	public ParticleSystem landingEffect;
 
 	//Camera
 	public Camera mainCamera;
 	// Use this for initialization
 	void Start () {
 		canPlayed = true;
+		characterIndexNumber = FindObjectOfType<CharacterPrefs> ().player2Pref;
+		if (characterIndexNumber == 1) {
+			idle = character1 [0];
+			jumping = character1 [1];
+			diving = character1 [2];
+			dead = character1 [3];
+		} else if (characterIndexNumber == 2) {
+			idle = character2 [0];
+			jumping = character2 [1];
+			diving = character2 [2];
+			dead = character2 [3];
+		} else {
+			idle = character3[0];
+			jumping = character3[1];
+			diving = character3[2];
+			dead = character3[3];
+		}
 	}
 	
 	// Update is called once per frame
