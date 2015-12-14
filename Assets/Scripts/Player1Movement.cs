@@ -106,12 +106,13 @@ public class Player1Movement : MonoBehaviour {
 
 				if(!playedLandingEffect){
 					StartCoroutine(landingAnim());
+					FindObjectOfType<AudioManager>().idleMusic.Play();
 				}
 			
 			//Destroy(Instantiate(landingEffect, transform.position, Quaternion.identity) as GameObject, 0.5f);
 			
 			renderSprite.GetComponent<SpriteRenderer>().sprite = idle;
-			FindObjectOfType<AudioManager>().idleMusic.Play();
+
 			grounded = true;
 		}
 		

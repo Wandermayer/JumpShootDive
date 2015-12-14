@@ -105,9 +105,10 @@ public class Player2Movement : MonoBehaviour {
 			//GetComponentInChildren<SpriteRenderer>().sprite = idle;
 			if(!playedLandingEffect){
 				StartCoroutine(landingAnim());
+				FindObjectOfType<AudioManager>().idleMusic.Play();
 			}
 			renderSprite.GetComponent<SpriteRenderer>().sprite = idle;
-			FindObjectOfType<AudioManager>().idleMusic.Play();
+
 			grounded = true;
 		}
 		
