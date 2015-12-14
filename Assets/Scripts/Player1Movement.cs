@@ -19,6 +19,7 @@ public class Player1Movement : MonoBehaviour {
 	public Sprite diving;
 	public GameObject muzzleFlash;
 	public GameObject renderSprite;
+	public ParticleSystem deathEffect;
 	//floats
 	public float jumpHeight;
 
@@ -135,9 +136,13 @@ public class Player1Movement : MonoBehaviour {
 	}
 
 	IEnumerator deathSequence(){
+		isDead = false;
 		renderSprite.GetComponent<SpriteRenderer>().sprite = dead;
+		canPlayed = false;
+		Destroy (Instantiate (deathEffect,new Vector3(transform.position.x, transform.position.y, transform.position.z -1), Quaternion.identity) as GameObject, 1f);
 		yield return new WaitForSeconds(2f);{
-			isDead = false;
+			canPlayed = true;
+
 		}
 	}
 

@@ -28,7 +28,7 @@ public class Player2Movement : MonoBehaviour {
 	public GameObject projectile;
 	public GameObject renderSprite;
 	public GameObject flashMuzzle;
-
+	public ParticleSystem deathEffect;
 	//Camera
 	public Camera mainCamera;
 	// Use this for initialization
@@ -40,7 +40,7 @@ public class Player2Movement : MonoBehaviour {
 	void Update () {
 
 		if (isDead) {
-			StartCoroutine(deathSequence());
+			StartCoroutine(deathSequence1());
 			
 		}
 		if (!canPlay || isDead) {
@@ -100,12 +100,19 @@ public class Player2Movement : MonoBehaviour {
 		
 	}
 
-	IEnumerator deathSequence(){
+	IEnumerator deathSequence1(){
 		renderSprite.GetComponent<SpriteRenderer> ().sprite = dead;
-		yield return new WaitForSeconds (2f);{
-			isDead = false;
+		Destroy (Instantiate (deathEffect.gameObject, new Vector3(transform.position.x, transform.position.y, transform.position.z -1), Quaternion.identity)as GameObject, 1f);
+		isDead = false;
+		canPlay = false;
+		yield return new WaitForSeconds (1.5f);{
+		
+			canPlay = true;
 		}
 	}
+
+
+
 
 	public void onPlayed(){
 
