@@ -59,12 +59,8 @@ public class GameController : MonoBehaviour {
 		} else {
 			//Debug.LogWarning ("Does't work!");
 			hasFinishedAnim = false;
-<<<<<<< Updated upstream
-			canvas.SetActive (false);
-			}
-=======
 			//canvas.SetActive (false);
->>>>>>> Stashed changes
+			}
 		}
 	}
 
