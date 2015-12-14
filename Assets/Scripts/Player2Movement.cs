@@ -22,13 +22,19 @@ public class Player2Movement : MonoBehaviour {
 	public Rigidbody myRigidbody;
 	public Transform projectileSpawn;
 	public GameObject projectile;
+
+	//Camera
+	public Camera mainCamera;
 	// Use this for initialization
 	void Start () {
-		
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if (!mainCamera.GetComponent<GameController> ().hasFinishedAnim) {
+			return;
+		}
 		
 		
 		if (Input.GetKeyDown (KeyCode.LeftShift) && ammo && !grounded) {

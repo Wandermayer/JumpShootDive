@@ -20,6 +20,9 @@ public class Player1Movement : MonoBehaviour {
 	public Rigidbody myRigidbody;
 	public Transform projectileSpawn;
 	public GameObject projectile;
+
+	//Camera
+	public Camera mainCamera;
 	// Use this for initialization
 	void Start () {
 		
@@ -27,7 +30,9 @@ public class Player1Movement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+		if (!mainCamera.GetComponent<GameController> ().hasFinishedAnim) {
+			return;
+		}
 
 		if (Input.GetKeyDown (KeyCode.Space) && ammo && !grounded) {
 			Instantiate(projectile, projectileSpawn.position, projectileSpawn.rotation);
