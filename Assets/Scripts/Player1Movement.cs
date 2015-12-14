@@ -55,6 +55,7 @@ public class Player1Movement : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.Space) && ammo && !grounded) {
 			StartCoroutine(MuzzleFlash());
 			Instantiate(projectile, projectileSpawn.position, projectileSpawn.rotation);
+			FindObjectOfType<AudioManager>().gun1.Play();
 			ammo = false;
 		}
 		
@@ -63,6 +64,7 @@ public class Player1Movement : MonoBehaviour {
 			if(grounded){
 				playedLandingEffect = false;
 				hasDoubleJumped = false;
+				FindObjectOfType<AudioManager>().jump1.Play();
 				hasDived = false;
 				myRigidbody.AddForce(0, jumpHeight, 0);
 				doubleJump = true;
@@ -71,6 +73,7 @@ public class Player1Movement : MonoBehaviour {
 				if(doubleJump){
 					StartCoroutine(doubleJumping());
 					hasDoubleJumped = true;
+					FindObjectOfType<AudioManager>().jump1.Play();
 					dive = true;
 					doubleJump = false;
 					myRigidbody.velocity = Vector3.zero;
@@ -82,6 +85,7 @@ public class Player1Movement : MonoBehaviour {
 						hasDived = true;
 						//GetComponentInChildren<SpriteRenderer>().sprite = diving;
 						renderSprite.GetComponent<SpriteRenderer>().sprite = diving;
+						FindObjectOfType<AudioManager>().dive1.Play();
 						myRigidbody.velocity = Vector3.zero;
 						myRigidbody.AddForce(0, -jumpHeight,0);
 					}
@@ -107,6 +111,7 @@ public class Player1Movement : MonoBehaviour {
 			//Destroy(Instantiate(landingEffect, transform.position, Quaternion.identity) as GameObject, 0.5f);
 			
 			renderSprite.GetComponent<SpriteRenderer>().sprite = idle;
+			FindObjectOfType<AudioManager>().idleMusic.Play();
 			grounded = true;
 		}
 		

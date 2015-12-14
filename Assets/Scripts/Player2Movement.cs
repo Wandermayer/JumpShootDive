@@ -33,9 +33,11 @@ public class Player2Movement : MonoBehaviour {
 	public ParticleSystem landingEffect;
 	//Camera
 	public Camera mainCamera;
+
 	// Use this for initialization
 	void Start () {
 		canPlay = true;
+
 	}
 	
 	// Update is called once per frame
@@ -54,6 +56,7 @@ public class Player2Movement : MonoBehaviour {
 		
 		if (Input.GetKeyDown (KeyCode.LeftShift) && ammo && !grounded) {
 			Instantiate(projectile, projectileSpawn.position, projectileSpawn.rotation);
+			FindObjectOfType<AudioManager>().gun1.Play();
 			StartCoroutine(muzzleFlash());
 			ammo = false;
 		}
@@ -61,6 +64,7 @@ public class Player2Movement : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.Q) ) {
 			playedLandingEffect = false;
 			if(grounded){
+				FindObjectOfType<AudioManager>().jump1.Play();
 				hasDoubleJumped = false;
 				hasDived = false;
 				myRigidbody.AddForce(0, jumpHeight, 0);
@@ -71,6 +75,7 @@ public class Player2Movement : MonoBehaviour {
 					StartCoroutine(doubleJumping());
 					hasDoubleJumped = true;
 					dive = true;
+					FindObjectOfType<AudioManager>().jump2.Play();
 					doubleJump = false;
 					myRigidbody.velocity = Vector3.zero;
 					myRigidbody.AddForce(0, jumpHeight, 0);
@@ -81,6 +86,7 @@ public class Player2Movement : MonoBehaviour {
 						hasDived = true;
 						//GetComponentInChildren<SpriteRenderer>().sprite = diving;
 						renderSprite.GetComponent<SpriteRenderer>().sprite = diving;
+						FindObjectOfType<AudioManager>().dive2.Play();
 						myRigidbody.velocity = Vector3.zero;
 						myRigidbody.AddForce(0, -jumpHeight,0);
 					}
@@ -101,6 +107,7 @@ public class Player2Movement : MonoBehaviour {
 				StartCoroutine(landingAnim());
 			}
 			renderSprite.GetComponent<SpriteRenderer>().sprite = idle;
+			FindObjectOfType<AudioManager>().idleMusic.Play();
 			grounded = true;
 		}
 		

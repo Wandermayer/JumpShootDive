@@ -25,6 +25,7 @@ public class Projectile : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other){
+		FindObjectOfType<AudioManager>().hit1.Play();
 		if (other.tag == "player1Collider" ) {
 			FindObjectOfType<Player2Movement>().isDead = true;
 			Debug.Log("Player2 wins!");
