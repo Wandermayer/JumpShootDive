@@ -55,12 +55,16 @@ public class GameController : MonoBehaviour {
 		if (anim.GetCurrentAnimatorStateInfo (0).IsName ("Done")) {
 			//Debug.Log ("Works!");
 			hasFinishedAnim = true;
-			canvas.SetActive (true);
+			//canvas.SetActive (true);
 		} else {
 			//Debug.LogWarning ("Does't work!");
 			hasFinishedAnim = false;
+<<<<<<< Updated upstream
 			canvas.SetActive (false);
 			}
+=======
+			//canvas.SetActive (false);
+>>>>>>> Stashed changes
 		}
 	}
 
