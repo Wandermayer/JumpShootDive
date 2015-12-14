@@ -12,6 +12,7 @@ public class Player1Movement : MonoBehaviour {
 	bool hasDoubleJumped;
 	public bool canPlayed;
 	public bool isDead;
+	bool playedLandingEffect;
 	//sprites
 	public Sprite dead;
 	public Sprite idle;
@@ -20,6 +21,7 @@ public class Player1Movement : MonoBehaviour {
 	public GameObject muzzleFlash;
 	public GameObject renderSprite;
 	public ParticleSystem deathEffect;
+	public ParticleSystem landingEffect;
 	//floats
 	public float jumpHeight;
 
@@ -57,7 +59,9 @@ public class Player1Movement : MonoBehaviour {
 		}
 		
 		if (Input.GetKeyDown (KeyCode.UpArrow) ) {
+			playedLandingEffect = false;
 			if(grounded){
+				playedLandingEffect = false;
 				hasDoubleJumped = false;
 				hasDived = false;
 				myRigidbody.AddForce(0, jumpHeight, 0);
@@ -95,6 +99,13 @@ public class Player1Movement : MonoBehaviour {
 		} else {
 			//Debug.Log("On za ground");
 			//GetComponentInChildren<SpriteRenderer>().sprite = idle;
+
+				if(!playedLandingEffect){
+					StartCoroutine(landingAnim());
+				}
+			
+			//Destroy(Instantiate(landingEffect, transform.position, Quaternion.identity) as GameObject, 0.5f);
+			
 			renderSprite.GetComponent<SpriteRenderer>().sprite = idle;
 			grounded = true;
 		}
@@ -104,6 +115,17 @@ public class Player1Movement : MonoBehaviour {
 		StartCoroutine (startAnim ());
 		FindObjectOfType<Player2Movement> ().onPlayed ();
 		StartCoroutine (loadScene ());
+	}
+
+	IEnumerator landingAnim(){
+
+		yield return new WaitForSeconds (0.05f);
+		if (transform.position.y < 1) {
+			Destroy (Instantiate (landingEffect, transform.position, Quaternion.identity) as GameObject, 0.1f);
+			playedLandingEffect = true;
+		} else {
+			playedLandingEffect = false;
+		}
 	}
 
 	IEnumerator MuzzleFlash(){

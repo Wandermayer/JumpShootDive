@@ -10,6 +10,7 @@ public class Player2Movement : MonoBehaviour {
 	bool doubleJump = false;
 	bool ammo;
 	bool dive = false;
+	bool playedLandingEffect;
 	bool hasDived;
 	bool hasDoubleJumped;
 	public bool canPlay;
@@ -29,6 +30,7 @@ public class Player2Movement : MonoBehaviour {
 	public GameObject renderSprite;
 	public GameObject flashMuzzle;
 	public ParticleSystem deathEffect;
+	public ParticleSystem landingEffect;
 	//Camera
 	public Camera mainCamera;
 	// Use this for initialization
@@ -57,6 +59,7 @@ public class Player2Movement : MonoBehaviour {
 		}
 		
 		if (Input.GetKeyDown (KeyCode.Q) ) {
+			playedLandingEffect = false;
 			if(grounded){
 				hasDoubleJumped = false;
 				hasDived = false;
@@ -94,10 +97,23 @@ public class Player2Movement : MonoBehaviour {
 		} else {
 			//Debug.Log("On za ground");
 			//GetComponentInChildren<SpriteRenderer>().sprite = idle;
+			if(!playedLandingEffect){
+				StartCoroutine(landingAnim());
+			}
 			renderSprite.GetComponent<SpriteRenderer>().sprite = idle;
 			grounded = true;
 		}
 		
+	}
+	IEnumerator landingAnim(){
+		
+		yield return new WaitForSeconds (0.05f);
+		if (transform.position.y < 1) {
+			Destroy (Instantiate (landingEffect, transform.position, Quaternion.identity) as GameObject, 0.1f);
+			playedLandingEffect = true;
+		} else {
+			playedLandingEffect = false;
+		}
 	}
 
 	IEnumerator deathSequence1(){
