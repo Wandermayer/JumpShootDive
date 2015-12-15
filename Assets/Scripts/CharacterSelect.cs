@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class CharacterSelect : MonoBehaviour {
+	//UI
+	public Text infoText;
 	//References
 	Rigidbody player1;
 	Rigidbody player2;
@@ -28,6 +31,7 @@ public class CharacterSelect : MonoBehaviour {
 	public Transform position2;
 	// Use this for initialization
 	void Start () {
+		infoText.text = "";
 		mainCamera.transform.position = position1.position;
 		player1Renderer = player1GO.GetComponentInChildren<SpriteRenderer> ();
 		player2Renderer = player2GO.GetComponentInChildren<SpriteRenderer> ();
@@ -60,6 +64,7 @@ public class CharacterSelect : MonoBehaviour {
 				arrayNumber++;
 				StartCoroutine(changeCharacter1());
 				player1.velocity = Vector3.zero;
+				infoText.text = "Player 1: Summon your character!";
 				player1.AddForce(0, 550, 0);
 			}
 		}
@@ -69,6 +74,7 @@ public class CharacterSelect : MonoBehaviour {
 				has2Jumped = true;
 				StartCoroutine(changeCharacter2());
 				arrayNumber++;
+				infoText.text = "Player 2: Choose you warrior!";
 				player2.velocity = Vector3.zero;
 				player2.AddForce(0, 550, 0);
 			}

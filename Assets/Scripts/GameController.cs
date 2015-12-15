@@ -7,24 +7,30 @@ public class GameController : MonoBehaviour {
 	public bool hasFinishedAnim;
 	public Animator anim;
 	public bool playing;
-	public GameObject canvas;
+	//public GameObject canvas;
 	public int player1Score;
 	public int player2Score;
+
 
 	public Text player1Text;
 	public Text player2Text;
 	public Text winText;
 	public bool isInPlay;
-
+	public GameObject charSelectButton;
 	public GameObject restartButton;
 
 	// Use this for initialization
 	void Start () {
+
+	
 		winText.text = " ";
 		anim = GetComponent<Animator> ();
 		if (!isInPlay) {
-			FindObjectOfType<Player2Movement> ().canPlay = false;
-			FindObjectOfType<Player1Movement> ().canPlayed = false;
+
+			FindObjectOfType<Player2Movement> ().enabled = false;
+			FindObjectOfType<Player1Movement> ().enabled = false;
+		} else {
+			Debug.Log("WIERD!");
 		}
 	}
 	
@@ -33,15 +39,19 @@ public class GameController : MonoBehaviour {
 
 
 		if (player1Score >= 3) {
+
 			FindObjectOfType<Player2Movement>().enabled = false;
 			FindObjectOfType<Player1Movement>().enabled = false;
 			restartButton.SetActive (true);
+			charSelectButton.SetActive(true);
 			winText.text = "Player 1 wins!";
 
 		} else {
 			if(player2Score >= 3){
+
 				FindObjectOfType<Player2Movement>().enabled = false;
 				FindObjectOfType<Player1Movement>().enabled = false;
+				charSelectButton.SetActive(true);
 				restartButton.SetActive (true);
 				winText.text = "Player 2 wins!";
 
@@ -62,6 +72,12 @@ public class GameController : MonoBehaviour {
 			//canvas.SetActive (false);
 			}
 		}
+	}
+
+
+
+	public void charSelect(){
+		Application.LoadLevel (1);
 	}
 
 	public void restartgame(){

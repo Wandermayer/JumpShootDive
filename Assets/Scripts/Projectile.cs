@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Projectile : MonoBehaviour {
 	public bool facingRight;
-	float velocity = -1;
+	float velocity = -2;
 	float lifeTime = 3f;
 
 	// Use this for initialization
