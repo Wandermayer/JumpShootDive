@@ -83,7 +83,7 @@ public class CharacterSelect : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.Space)) {
 			player2SelectoinDone = true;
 			FindObjectOfType<CharacterPrefs>().player2Pref = arrayNumber;
-			Application.LoadLevel(1);
+			Application.LoadLevel(2);
 		}
 	}
 
