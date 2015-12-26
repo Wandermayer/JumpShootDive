@@ -66,6 +66,7 @@ public class CharacterSelect : MonoBehaviour {
 				player1.velocity = Vector3.zero;
 				infoText.text = "Player 1: Summon your character!";
 				player1.AddForce(0, 550, 0);
+				FindObjectOfType<AudioManager>().tambo.Play();
 			}
 		}
 
@@ -77,6 +78,7 @@ public class CharacterSelect : MonoBehaviour {
 				infoText.text = "Player 2: Choose you warrior!";
 				player2.velocity = Vector3.zero;
 				player2.AddForce(0, 550, 0);
+				FindObjectOfType<AudioManager>().tambo.Play();
 			}
 		}
 
@@ -86,7 +88,7 @@ public class CharacterSelect : MonoBehaviour {
 			FindObjectOfType<CharacterPrefs>().player1Pref = arrayNumber;
 		}
 
-		if (Input.GetKeyDown (KeyCode.Space)) {
+		if (Input.GetKeyDown (KeyCode.Space) && player1SelectionDone) {
 			player2SelectoinDone = true;
 			FindObjectOfType<CharacterPrefs>().player2Pref = arrayNumber;
 			Application.LoadLevel(2);

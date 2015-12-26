@@ -13,6 +13,7 @@ public class AudioManager : MonoBehaviour {
 	public AudioSource dive2;
 	public AudioSource hit1;
 	public AudioSource gun1;
+	public AudioSource tambo;
 	// Use this for initialization
 	void Start () {
 		audios = GetComponents<AudioSource> ();
@@ -23,6 +24,7 @@ public class AudioManager : MonoBehaviour {
 		dive2 = audios [4];
 		hit1 = audios [5];
 		gun1 = audios [6];
+		tambo = audios [7];
 	}
 
 	public void playSound(AudioSource clip){
