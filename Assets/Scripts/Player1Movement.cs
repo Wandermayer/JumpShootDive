@@ -26,6 +26,7 @@ public class Player1Movement : MonoBehaviour {
 
 	//floats
 	public float jumpHeight;
+	public float diveHeight;
 
 	//references
 	public Rigidbody myRigidbody;
@@ -75,11 +76,22 @@ public class Player1Movement : MonoBehaviour {
 
 		}
 
-		if (Input.GetKeyDown (KeyCode.Space) && ammo && !grounded) {
-			StartCoroutine(MuzzleFlash());
+		if (Input.GetKeyDown (KeyCode.Space) && !grounded) {
+			if(ammo == true){StartCoroutine(MuzzleFlash());
 			Instantiate(projectile, projectileSpawn.position, projectileSpawn.rotation);
 			FindObjectOfType<AudioManager>().gun1.Play();
 			ammo = false;
+			}
+			else{
+				if(!hasDived){
+					hasDived = true;
+					//GetComponentInChildren<SpriteRenderer>().sprite = diving;
+					renderSprite.GetComponent<SpriteRenderer>().sprite = diving;
+					FindObjectOfType<AudioManager>().dive1.Play();
+					myRigidbody.velocity = Vector3.zero;
+					myRigidbody.AddForce(0, diveHeight,0);
+				}
+			}
 		}
 		
 		if (Input.GetKeyDown (KeyCode.UpArrow) ) {
@@ -104,13 +116,13 @@ public class Player1Movement : MonoBehaviour {
 					
 				}
 				else{
-					if(dive){
+					if(dive && !hasDived){
 						hasDived = true;
 						//GetComponentInChildren<SpriteRenderer>().sprite = diving;
 						renderSprite.GetComponent<SpriteRenderer>().sprite = diving;
 						FindObjectOfType<AudioManager>().dive1.Play();
 						myRigidbody.velocity = Vector3.zero;
-						myRigidbody.AddForce(0, -jumpHeight,0);
+						myRigidbody.AddForce(0, diveHeight,0);
 					}
 				}
 			}
