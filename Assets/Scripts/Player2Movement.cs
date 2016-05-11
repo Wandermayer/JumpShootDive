@@ -71,20 +71,13 @@ public class Player2Movement : MonoBehaviour {
 
 		if (isDead) {
 			StartCoroutine(deathSequence1());
-			
 		}
 		if (!canPlay || isDead) {
 				return;
-			}
-
-		
-		
-		
-		if (Input.GetKeyDown (KeyCode.LeftShift) && !grounded) {
-			
-			Shoot ();
-			
 		}
+	//	if (Input.GetKeyDown (KeyCode.LeftShift) && !grounded) {
+	//			Shoot ();
+	//	}
 		
 	//	if (Input.GetKeyDown (KeyCode.Q) ) {
 	//		Move ();
@@ -97,16 +90,14 @@ public class Player2Movement : MonoBehaviour {
 				renderSprite.GetComponent<SpriteRenderer>().sprite = jumping;
 			}
 		} else {
+			grounded = true;
+			renderSprite.GetComponent<SpriteRenderer>().sprite = idle;
 			//Debug.Log("On za ground");
 			//GetComponentInChildren<SpriteRenderer>().sprite = idle;
 			if(!playedLandingEffect){
 				StartCoroutine(landingAnim());
 				FindObjectOfType<AudioManager>().idleMusic.Play();
 			}
-			renderSprite.GetComponent<SpriteRenderer>().sprite = idle;
-
-			grounded = true;
-			//HEREEEEEEEEEEEEEEEEEE
 			leftAction.text = "Jump!";
 
 		}
@@ -200,7 +191,7 @@ public class Player2Movement : MonoBehaviour {
 	}
 
 	public void Shoot(){
-		if(ammo == true){
+		if(ammo == true && !grounded){
 			Instantiate(projectile, projectileSpawn.position, projectileSpawn.rotation);
 			FindObjectOfType<AudioManager>().gun1.Play();
 			StartCoroutine(muzzleFlash());

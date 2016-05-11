@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Projectile : MonoBehaviour {
 	public bool facingRight;
-	float velocity = -2;
+	float velocity = -1.5f;
 	float lifeTime = 3f;
 
 	// Use this for initialization
@@ -28,14 +28,17 @@ public class Projectile : MonoBehaviour {
 		FindObjectOfType<AudioManager>().hit1.Play();
 		if (other.tag == "player1Collider" ) {
 			FindObjectOfType<Player2Movement>().isDead = true;
-			Debug.Log("Player2 wins!");
+		//	Debug.Log("Player2 wins!");
 			FindObjectOfType<GameController>().player2Score ++;
+			FindObjectOfType<GameController> ().removePlayer1HealthIcon (FindObjectOfType<GameController> ().player2Score);
+
 		}
 		else{
-			if(other.tag != "Player1"){
+			if(other.tag != "Player1" && other.tag == "player2Collider"){
 				FindObjectOfType<Player1Movement>().isDead = true;
-				Debug.Log ("Player1 Wins");
+//				Debug.Log ("Player1 Wins");
 				FindObjectOfType<GameController>().player1Score ++;
+				FindObjectOfType<GameController> ().removePlayer2HealthIcon (FindObjectOfType<GameController> ().player1Score);
 			}
 		}
 	}

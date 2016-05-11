@@ -32,7 +32,7 @@ public class GameController : MonoBehaviour {
 			FindObjectOfType<Player2Movement> ().enabled = false;
 			FindObjectOfType<Player1Movement> ().enabled = false;
 		} else {
-			Debug.Log("WIERD!");
+//			Debug.Log("WIERD!");
 		}
 	}
 	
@@ -85,6 +85,16 @@ public class GameController : MonoBehaviour {
 	public void restartgame(){
 		//Application.LoadLevel (Application.loadedLevel);
 		SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
+	}
+
+	public void removePlayer1HealthIcon(int score){
+		Debug.Log (score);
+		GameObject.Find ("Player1Health" + score).SetActive(false);
+	}
+
+	public void removePlayer2HealthIcon(int score){
+		Debug.Log ("Player2Health" + score);
+		GameObject.Find ("Player2Health" + score).SetActive(false);
 	}
 
 }

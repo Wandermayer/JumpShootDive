@@ -211,7 +211,8 @@ public class Player1Movement : MonoBehaviour {
 	}
 
 	public void Shoot(){
-		if(ammo == true){StartCoroutine(MuzzleFlash());
+		if(ammo == true && !grounded){
+			StartCoroutine(MuzzleFlash());
 			Instantiate(projectile, projectileSpawn.position, projectileSpawn.rotation);
 			FindObjectOfType<AudioManager>().gun1.Play();
 			ammo = false;
