@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CharacterSelect : MonoBehaviour {
 	//UI
@@ -91,7 +92,7 @@ public class CharacterSelect : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.Space) && player1SelectionDone) {
 			player2SelectoinDone = true;
 			FindObjectOfType<CharacterPrefs>().player2Pref = arrayNumber;
-			Application.LoadLevel(2);
+			SceneManager.LoadScene("Scene_6");
 		}
 	}
 

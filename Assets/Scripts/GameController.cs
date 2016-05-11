@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class GameController : MonoBehaviour {
 
@@ -77,11 +79,12 @@ public class GameController : MonoBehaviour {
 
 
 	public void charSelect(){
-		Application.LoadLevel (1);
+		SceneManager.LoadScene ("Scene_5");
 	}
 
 	public void restartgame(){
-		Application.LoadLevel (Application.loadedLevel);
+		//Application.LoadLevel (Application.loadedLevel);
+		SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
 	}
 
 }

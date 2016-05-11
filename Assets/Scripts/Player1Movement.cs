@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Player1Movement : MonoBehaviour {
 	//Integers
@@ -29,6 +31,7 @@ public class Player1Movement : MonoBehaviour {
 	public float diveHeight;
 
 	//references
+	public Text rightAction;
 	public Rigidbody myRigidbody;
 	public Transform projectileSpawn;
 	public GameObject projectile;
@@ -42,22 +45,25 @@ public class Player1Movement : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		canPlayed = true;
-		characterIndexNumber = FindObjectOfType<CharacterPrefs> ().player2Pref;
-		if (characterIndexNumber == 1) {
-			idle = character1 [0];
-			jumping = character1 [1];
-			diving = character1 [2];
-			dead = character1 [3];
-		} else if (characterIndexNumber == 2) {
-			idle = character2 [0];
-			jumping = character2 [1];
-			diving = character2 [2];
-			dead = character2 [3];
-		} else {
-			idle = character3[0];
-			jumping = character3[1];
-			diving = character3[2];
-			dead = character3[3];
+		if (!canPlayed) {
+			characterIndexNumber = FindObjectOfType<CharacterPrefs> ().player2Pref;
+			if (characterIndexNumber == 1) {
+				idle = character1 [0];
+				jumping = character1 [1];
+				diving = character1 [2];
+				dead = character1 [3];
+			} else if (characterIndexNumber == 2) {
+				idle = character2 [0];
+				jumping = character2 [1];
+				diving = character2 [2];
+				dead = character2 [3];
+			} else {
+				idle = character3 [0];
+				jumping = character3 [1];
+				diving = character3 [2];
+				dead = character3 [3];
+			}
+		
 		}
 	}
 	
@@ -71,62 +77,19 @@ public class Player1Movement : MonoBehaviour {
 		}
 		if (!isInPlayed) {
 			if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.LeftShift)){
-				Application.LoadLevel(1);
+				SceneManager.LoadScene ("Scene_5");
 			}
 
 		}
 
-		if (Input.GetKeyDown (KeyCode.Space) && !grounded) {
-			if(ammo == true){StartCoroutine(MuzzleFlash());
-			Instantiate(projectile, projectileSpawn.position, projectileSpawn.rotation);
-			FindObjectOfType<AudioManager>().gun1.Play();
-			ammo = false;
-			}
-			else{
-				if(!hasDived){
-					hasDived = true;
-					//GetComponentInChildren<SpriteRenderer>().sprite = diving;
-					renderSprite.GetComponent<SpriteRenderer>().sprite = diving;
-					FindObjectOfType<AudioManager>().dive1.Play();
-					myRigidbody.velocity = Vector3.zero;
-					myRigidbody.AddForce(0, diveHeight,0);
-				}
-			}
-		}
+		//if (Input.GetKeyDown (KeyCode.Space) && !grounded) {
+		//	Shoot ();
+
+		//}
 		
-		if (Input.GetKeyDown (KeyCode.UpArrow) ) {
-			playedLandingEffect = false;
-			if(grounded){
-				playedLandingEffect = false;
-				hasDoubleJumped = false;
-				FindObjectOfType<AudioManager>().jump1.Play();
-				hasDived = false;
-				myRigidbody.AddForce(0, jumpHeight, 0);
-				doubleJump = true;
-				ammo = true;
-			}else{
-				if(doubleJump){
-					StartCoroutine(doubleJumping());
-					hasDoubleJumped = true;
-					FindObjectOfType<AudioManager>().jump1.Play();
-					dive = true;
-					doubleJump = false;
-					myRigidbody.velocity = Vector3.zero;
-					myRigidbody.AddForce(0, jumpHeight, 0);
-					
-				}
-				else{
-					if(dive && !hasDived){
-						hasDived = true;
-						//GetComponentInChildren<SpriteRenderer>().sprite = diving;
-						renderSprite.GetComponent<SpriteRenderer>().sprite = diving;
-						FindObjectOfType<AudioManager>().dive1.Play();
-						myRigidbody.velocity = Vector3.zero;
-						myRigidbody.AddForce(0, diveHeight,0);
-					}
-				}
-			}
-		}
+		//if (Input.GetKeyDown (KeyCode.UpArrow) ) {
+	//		Move ();
+		//}
 		
 		if (transform.position.y > 1) {
 			grounded = false;
@@ -149,6 +112,8 @@ public class Player1Movement : MonoBehaviour {
 			renderSprite.GetComponent<SpriteRenderer>().sprite = idle;
 
 			grounded = true;
+			rightAction.text = "Jump!";
+		
 		}
 		
 	}
@@ -179,7 +144,7 @@ public class Player1Movement : MonoBehaviour {
 
 	IEnumerator loadScene(){
 		yield return new WaitForSeconds (0.8f);{
-			Application.LoadLevel(1);
+			SceneManager.LoadScene("Scene_5");
 		}
 	}
 	IEnumerator startAnim(){
@@ -208,5 +173,51 @@ public class Player1Movement : MonoBehaviour {
 
 		}
 	}
+
+	public void Move(){
+		playedLandingEffect = false;
+		if(grounded){
+			rightAction.text = "Jump Again!";
+			playedLandingEffect = false;
+			hasDoubleJumped = false;
+			FindObjectOfType<AudioManager>().jump1.Play();
+			hasDived = false;
+			myRigidbody.AddForce(0, jumpHeight, 0);
+			doubleJump = true;
+			ammo = true;
+		}else{
+			if(doubleJump){
+				rightAction.text = "Dive!";
+				StartCoroutine(doubleJumping());
+				hasDoubleJumped = true;
+				FindObjectOfType<AudioManager>().jump1.Play();
+				dive = true;
+				doubleJump = false;
+				myRigidbody.velocity = Vector3.zero;
+				myRigidbody.AddForce(0, jumpHeight, 0);
+
+			}
+			else{
+				if(dive && !hasDived){
+					hasDived = true;
+					//GetComponentInChildren<SpriteRenderer>().sprite = diving;
+					renderSprite.GetComponent<SpriteRenderer>().sprite = diving;
+					FindObjectOfType<AudioManager>().dive1.Play();
+					myRigidbody.velocity = Vector3.zero;
+					myRigidbody.AddForce(0, diveHeight,0);
+				}
+			}
+		}
+	}
+
+	public void Shoot(){
+		if(ammo == true){StartCoroutine(MuzzleFlash());
+			Instantiate(projectile, projectileSpawn.position, projectileSpawn.rotation);
+			FindObjectOfType<AudioManager>().gun1.Play();
+			ammo = false;
+		}
+	}
+
+		
 
 }
