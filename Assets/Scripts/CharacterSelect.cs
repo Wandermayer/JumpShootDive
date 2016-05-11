@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class CharacterSelect : MonoBehaviour {
 	//UI
 	public Text infoText;
+
 	//References
 	Rigidbody player1;
 	Rigidbody player2;
@@ -23,6 +24,7 @@ public class CharacterSelect : MonoBehaviour {
 	//Booleans
 	bool has1Jumped;
 	bool has2Jumped;
+	bool moveCamera = false;
 	public bool player1SelectionDone;
 	public bool player2SelectoinDone;
 	//Camera
@@ -32,7 +34,7 @@ public class CharacterSelect : MonoBehaviour {
 	public Transform position2;
 	// Use this for initialization
 	void Start () {
-		infoText.text = "";
+		infoText.text = "Player 1: Summon your character!";
 		mainCamera.transform.position = position1.position;
 		player1Renderer = player1GO.GetComponentInChildren<SpriteRenderer> ();
 		player2Renderer = player2GO.GetComponentInChildren<SpriteRenderer> ();
@@ -42,6 +44,10 @@ public class CharacterSelect : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (moveCamera) {
+			mainCamera.transform.position = new Vector3(Mathf.Lerp(mainCamera.transform.position.x, position2.position.x, 0.1f), position2.position.y, position2.position.z);
+
+		}
 		if (player1GO.transform.position.y > 1) {
 			has1Jumped = true;
 		} else {
@@ -58,42 +64,9 @@ public class CharacterSelect : MonoBehaviour {
 		if (arrayNumber > 3) {
 			arrayNumber = 1;
 		}
-		if (!player1SelectionDone) {
-			if(Input.GetKeyDown(KeyCode.Q) && !has1Jumped){
-				has1Jumped = true;
-				currentCharacterIndex ++;
-				arrayNumber++;
-				StartCoroutine(changeCharacter1());
-				player1.velocity = Vector3.zero;
-				infoText.text = "Player 1: Summon your character!";
-				player1.AddForce(0, 550, 0);
-				FindObjectOfType<AudioManager>().tambo.Play();
-			}
-		}
+	
 
-		if (player1SelectionDone && !player2SelectoinDone) {
-			if(Input.GetKeyDown(KeyCode.UpArrow) && !has2Jumped){
-				has2Jumped = true;
-				StartCoroutine(changeCharacter2());
-				arrayNumber++;
-				infoText.text = "Player 2: Choose you warrior!";
-				player2.velocity = Vector3.zero;
-				player2.AddForce(0, 550, 0);
-				FindObjectOfType<AudioManager>().tambo.Play();
-			}
-		}
 
-		if (Input.GetKeyDown (KeyCode.LeftShift)) {
-			mainCamera.transform.position = position2.position;
-			player1SelectionDone = true;
-			FindObjectOfType<CharacterPrefs>().player1Pref = arrayNumber;
-		}
-
-		if (Input.GetKeyDown (KeyCode.Space) && player1SelectionDone) {
-			player2SelectoinDone = true;
-			FindObjectOfType<CharacterPrefs>().player2Pref = arrayNumber;
-			SceneManager.LoadScene("Scene_6");
-		}
 	}
 
 	IEnumerator changeCharacter1(){
@@ -124,4 +97,49 @@ public class CharacterSelect : MonoBehaviour {
 			
 		}
 	}
+
+	public void leftPlayerChange(){
+		if (!player1SelectionDone) {
+			if(!has1Jumped){
+				has1Jumped = true;
+				currentCharacterIndex ++;
+				arrayNumber++;
+				StartCoroutine(changeCharacter1());
+				player1.velocity = Vector3.zero;
+
+				player1.AddForce(0, 550, 0);
+				FindObjectOfType<AudioManager>().tambo.Play();
+			}
+		}
+	}
+
+	public void leftPlayerSelect(){
+		moveCamera = true;
+		player1SelectionDone = true;
+		FindObjectOfType<CharacterPrefs>().player1Pref = arrayNumber;
+		infoText.text = "Player 2: Choose you warrior!";
+	}
+
+	public void rightPlayerChange(){
+		if (player1SelectionDone && !player2SelectoinDone) {
+			if(!has2Jumped){
+				has2Jumped = true;
+				StartCoroutine(changeCharacter2());
+				arrayNumber++;
+
+				player2.velocity = Vector3.zero;
+				player2.AddForce(0, 550, 0);
+				FindObjectOfType<AudioManager>().tambo.Play();
+			}
+		}
+	}
+
+	public void rightPlayerSelect(){
+		if (player1SelectionDone) {
+			player2SelectoinDone = true;
+			FindObjectOfType<CharacterPrefs>().player2Pref = arrayNumber;
+			SceneManager.LoadScene("Scene_6");
+		}
+	}
+		
 }
