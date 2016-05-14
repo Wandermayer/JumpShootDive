@@ -44,8 +44,8 @@ public class Player1Movement : MonoBehaviour {
 	public Camera mainCamera;
 	// Use this for initialization
 	void Start () {
-		canPlayed = true;
-		if (!canPlayed) {
+		//canPlayed = true;
+		if (canPlayed) {
 			characterIndexNumber = FindObjectOfType<CharacterPrefs> ().player2Pref;
 			if (characterIndexNumber == 1) {
 				idle = character1 [0];
@@ -144,7 +144,7 @@ public class Player1Movement : MonoBehaviour {
 
 	IEnumerator loadScene(){
 		yield return new WaitForSeconds (0.8f);{
-			SceneManager.LoadScene("Scene_5");
+			SceneManager.LoadScene("MainMenu");
 		}
 	}
 	IEnumerator startAnim(){
@@ -175,43 +175,44 @@ public class Player1Movement : MonoBehaviour {
 	}
 
 	public void Move(){
-		playedLandingEffect = false;
-		if(grounded){
-			rightAction.text = "Jump Again!";
+		if (canPlayed) {
 			playedLandingEffect = false;
-			hasDoubleJumped = false;
-			FindObjectOfType<AudioManager>().jump1.Play();
-			hasDived = false;
-			myRigidbody.AddForce(0, jumpHeight, 0);
-			doubleJump = true;
-			ammo = true;
-		}else{
-			if(doubleJump){
-				rightAction.text = "Dive!";
-				StartCoroutine(doubleJumping());
-				hasDoubleJumped = true;
-				FindObjectOfType<AudioManager>().jump1.Play();
-				dive = true;
-				doubleJump = false;
-				myRigidbody.velocity = Vector3.zero;
-				myRigidbody.AddForce(0, jumpHeight, 0);
-
-			}
-			else{
-				if(dive && !hasDived){
-					hasDived = true;
-					//GetComponentInChildren<SpriteRenderer>().sprite = diving;
-					renderSprite.GetComponent<SpriteRenderer>().sprite = diving;
-					FindObjectOfType<AudioManager>().dive1.Play();
+			if (grounded) {
+				rightAction.text = "Jump Again!";
+				playedLandingEffect = false;
+				hasDoubleJumped = false;
+				FindObjectOfType<AudioManager> ().jump1.Play ();
+				hasDived = false;
+				myRigidbody.AddForce (0, jumpHeight, 0);
+				doubleJump = true;
+				ammo = true;
+			} else {
+				if (doubleJump) {
+					rightAction.text = "Dive!";
+					StartCoroutine (doubleJumping ());
+					hasDoubleJumped = true;
+					FindObjectOfType<AudioManager> ().jump1.Play ();
+					dive = true;
+					doubleJump = false;
 					myRigidbody.velocity = Vector3.zero;
-					myRigidbody.AddForce(0, diveHeight,0);
+					myRigidbody.AddForce (0, jumpHeight, 0);
+
+				} else {
+					if (dive && !hasDived) {
+						hasDived = true;
+						//GetComponentInChildren<SpriteRenderer>().sprite = diving;
+						renderSprite.GetComponent<SpriteRenderer> ().sprite = diving;
+						FindObjectOfType<AudioManager> ().dive1.Play ();
+						myRigidbody.velocity = Vector3.zero;
+						myRigidbody.AddForce (0, diveHeight, 0);
+					}
 				}
 			}
 		}
 	}
 
 	public void Shoot(){
-		if(ammo == true && !grounded){
+		if(ammo == true && !grounded && canPlayed){
 			StartCoroutine(MuzzleFlash());
 			Instantiate(projectile, projectileSpawn.position, projectileSpawn.rotation);
 			FindObjectOfType<AudioManager>().gun1.Play();

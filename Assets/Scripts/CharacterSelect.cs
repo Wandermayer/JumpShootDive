@@ -19,8 +19,8 @@ public class CharacterSelect : MonoBehaviour {
 	public Sprite[] character2;
 	public Sprite[] character3;
 	//integers
-	int currentCharacterIndex;
-	int arrayNumber;
+	public int currentCharacterIndex;
+	public int arrayNumber;
 	//Booleans
 	bool has1Jumped;
 	bool has2Jumped;

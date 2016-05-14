@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 
+	public Material[] backdrops;
+	public GameObject bg;
 	public bool hasFinishedAnim;
 	public Animator anim;
 	public bool playing;
@@ -20,10 +22,13 @@ public class GameController : MonoBehaviour {
 	public bool isInPlay;
 	public GameObject charSelectButton;
 	public GameObject restartButton;
+	public GameObject mainMenuButton;
 
 	// Use this for initialization
 	void Start () {
-
+		
+		//bg.GetComponent<Material> ().color = backdrops [Random.Range (0, 3)];
+		bg.GetComponent<Renderer>().material = backdrops[Random.Range(0,3)];
 	
 		winText.text = " ";
 		anim = GetComponent<Animator> ();
@@ -46,6 +51,7 @@ public class GameController : MonoBehaviour {
 			FindObjectOfType<Player1Movement>().enabled = false;
 			restartButton.SetActive (true);
 			charSelectButton.SetActive(true);
+			mainMenuButton.SetActive(true);
 			winText.text = "Player 1 wins!";
 
 		} else {
@@ -55,6 +61,7 @@ public class GameController : MonoBehaviour {
 				FindObjectOfType<Player1Movement>().enabled = false;
 				charSelectButton.SetActive(true);
 				restartButton.SetActive (true);
+				mainMenuButton.SetActive(true);
 				winText.text = "Player 2 wins!";
 
 			}
@@ -93,8 +100,12 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void removePlayer2HealthIcon(int score){
-		Debug.Log ("Player2Health" + score);
+ 		Debug.Log ("Player2Health" + score);
 		GameObject.Find ("Player2Health" + score).SetActive(false);
+	}
+
+	public void mainMenu(){
+		SceneManager.LoadScene ("MainMenu");
 	}
 
 }
