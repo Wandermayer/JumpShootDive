@@ -30,7 +30,7 @@ public class Projectile : MonoBehaviour {
 			FindObjectOfType<Player2Movement>().isDead = true;
 		//	Debug.Log("Player2 wins!");
 			FindObjectOfType<GameController>().player2Score ++;
-			FindObjectOfType<GameController> ().removePlayer1HealthIcon (FindObjectOfType<GameController> ().player2Score);
+			FindObjectOfType<GameController> ().AddPlayer1DeathIcon (FindObjectOfType<GameController> ().player2Score);
 
 		}
 		else{
@@ -38,7 +38,7 @@ public class Projectile : MonoBehaviour {
 				FindObjectOfType<Player1Movement>().isDead = true;
 //				Debug.Log ("Player1 Wins");
 				FindObjectOfType<GameController>().player1Score ++;
-				FindObjectOfType<GameController> ().removePlayer2HealthIcon (FindObjectOfType<GameController> ().player1Score);
+				FindObjectOfType<GameController> ().AddPlayer2DeathIcon (FindObjectOfType<GameController> ().player1Score);
 			}
 		}
 	}

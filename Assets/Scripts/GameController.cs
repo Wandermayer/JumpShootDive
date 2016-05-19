@@ -24,6 +24,9 @@ public class GameController : MonoBehaviour {
 	public GameObject restartButton;
 	public GameObject mainMenuButton;
 
+	private GameObject[] player1healths = new GameObject[3];
+	private GameObject[] player2healths = new GameObject[3];
+
 	// Use this for initialization
 	void Start () {
 		
@@ -36,8 +39,18 @@ public class GameController : MonoBehaviour {
 
 			FindObjectOfType<Player2Movement> ().enabled = false;
 			FindObjectOfType<Player1Movement> ().enabled = false;
-		} else {
-//			Debug.Log("WIERD!");
+		}
+
+		player1healths = GameObject.FindGameObjectsWithTag ("Health1");
+
+		player2healths = GameObject.FindGameObjectsWithTag ("Health2");
+
+		foreach (GameObject i in player1healths) {
+			i.SetActive (false);
+		}
+
+		foreach (GameObject i in player2healths) {
+			i.SetActive (false);
 		}
 	}
 	
@@ -94,18 +107,38 @@ public class GameController : MonoBehaviour {
 		SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
 	}
 
-	public void removePlayer1HealthIcon(int score){
+	public void AddPlayer1DeathIcon(int score){
 		Debug.Log (score);
-		GameObject.Find ("Player1Health" + score).SetActive(false);
+		//GameObject.Find ("Player1Health" + score).SetActive(true);
+		player1healths[score -1].SetActive(true);
 	}
 
-	public void removePlayer2HealthIcon(int score){
+	public void AddPlayer2DeathIcon(int score){
  		Debug.Log ("Player2Health" + score);
-		GameObject.Find ("Player2Health" + score).SetActive(false);
+	//	GameObject.Find ("Player2Health" + score).SetActive(true);
+		player2healths[score -1].SetActive(true);
 	}
 
 	public void mainMenu(){
 		SceneManager.LoadScene ("MainMenu");
 	}
+
+	public void onPause(){
+		Time.timeScale = 0;
+		FindObjectOfType<Player1Movement> ().canPlayed = false;
+		FindObjectOfType<Player2Movement> ().canPlay = false;
+		FindObjectOfType<CanvasGroup> ().alpha = 1;
+		FindObjectOfType<CanvasGroup> ().interactable = true;
+	}
+
+	public void onExitPause(){
+		Time.timeScale = 1;
+		FindObjectOfType<Player1Movement> ().canPlayed = true;
+		FindObjectOfType<Player2Movement> ().canPlay = true;
+		FindObjectOfType<CanvasGroup> ().alpha = 0;
+		FindObjectOfType<CanvasGroup> ().interactable = false;
+	}
+
+
 
 }

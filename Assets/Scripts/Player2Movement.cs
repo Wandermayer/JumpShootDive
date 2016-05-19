@@ -108,6 +108,7 @@ public class Player2Movement : MonoBehaviour {
 		yield return new WaitForSeconds (0.05f);
 		if (transform.position.y < 1) {
 			Destroy (Instantiate (landingEffect, transform.position, Quaternion.identity) as GameObject, 0.1f);
+
 			playedLandingEffect = true;
 		} else {
 			playedLandingEffect = false;
