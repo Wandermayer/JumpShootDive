@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 
+	private Cloud[] clouds;
 	public Material[] backdrops;
 	public GameObject bg;
 	public bool hasFinishedAnim;
@@ -28,6 +29,8 @@ public class GameController : MonoBehaviour {
 	private GameObject[] player2healths = new GameObject[3];
 	private GameObject pauseMenu;
 
+
+	//private Vector3 targetCloud;
 	// Use this for initialization
 	void Start () {
 		
@@ -56,8 +59,12 @@ public class GameController : MonoBehaviour {
 
 		pauseMenu = GameObject.FindGameObjectWithTag ("PauseMenu");
 		pauseMenu.SetActive (false);
+	//	targetCloud = cloud2Target.position;
+		clouds = FindObjectsOfType<Cloud>();
+
 	}
-	
+
+
 	// Update is called once per frame
 	void Update () {
 
@@ -84,8 +91,8 @@ public class GameController : MonoBehaviour {
 			}
 		}
 		if (isInPlay) {
-			player1Text.text = "Score: " + player1Score;
-			player2Text.text = "Score: " + player2Score;
+		//	player1Text.text = "Score: " + player1Score;
+		//	player2Text.text = "Score: " + player2Score;
 		}
 		if(playing){
 		if (anim.GetCurrentAnimatorStateInfo (0).IsName ("Done")) {
@@ -98,13 +105,14 @@ public class GameController : MonoBehaviour {
 			//canvas.SetActive (false);
 			}
 		}
+
 	}
 
 
 
 	public void charSelect(){
-		FindObjectOfType<Player1Movement> ().enabled = true;
-		FindObjectOfType<Player2Movement> ().enabled = true;
+		FindObjectOfType<Player1Movement> ().canPlayed = true;
+		FindObjectOfType<Player2Movement> ().canPlay = true;
 		Time.timeScale = 1;
 		SceneManager.LoadScene ("Scene_5");
 	}
@@ -112,8 +120,8 @@ public class GameController : MonoBehaviour {
 	public void restartgame(){
 		//Application.LoadLevel (Application.loadedLevel);
 		Time.timeScale = 1;
-		FindObjectOfType<Player1Movement> ().enabled = true;
-		FindObjectOfType<Player2Movement> ().enabled = true;
+		FindObjectOfType<Player1Movement> ().canPlayed = true;
+		FindObjectOfType<Player2Movement> ().canPlay = true;
 		SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
 	}
 
@@ -130,8 +138,8 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void mainMenu(){
-		FindObjectOfType<Player1Movement> ().enabled = true;
-		FindObjectOfType<Player2Movement> ().enabled = true;
+		FindObjectOfType<Player1Movement> ().canPlayed = true;
+		FindObjectOfType<Player2Movement> ().canPlay = true;
 		Time.timeScale = 1;
 		SceneManager.LoadScene ("MainMenu");
 	}
@@ -139,21 +147,27 @@ public class GameController : MonoBehaviour {
 	public void onPause(){
 		Time.timeScale = 0;
 		pauseMenu.SetActive (true);
-		FindObjectOfType<Player1Movement> ().enabled = false;
-		FindObjectOfType<Player2Movement> ().enabled = false;
+		FindObjectOfType<Player1Movement> ().canPlayed = false;
+		FindObjectOfType<Player2Movement> ().canPlay = false;
 		FindObjectOfType<CanvasGroup> ().alpha = 1;
 		FindObjectOfType<CanvasGroup> ().interactable = true;
+		foreach (Cloud c in clouds) {
+			c.enabled = false;
+		}
 	}
 
 	public void onExitPause(){
 		
 
-		FindObjectOfType<Player1Movement> ().enabled = true;
-		FindObjectOfType<Player2Movement> ().enabled = true;
+		FindObjectOfType<Player1Movement> ().canPlayed = true;
+		FindObjectOfType<Player2Movement> ().canPlay = true;
 		FindObjectOfType<CanvasGroup> ().alpha = 0;
 		FindObjectOfType<CanvasGroup> ().interactable = false;
 		pauseMenu.SetActive (false);
 		Time.timeScale = 1;
+		foreach (Cloud c in clouds) {
+			c.enabled = true;
+		}
 	}
 
 

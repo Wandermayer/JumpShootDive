@@ -20,6 +20,7 @@ public class Player2Movement : MonoBehaviour {
 	public Sprite[] character1;
 	public Sprite[] character2;
 	public Sprite[] character3;
+	public Sprite[] buttonImages;
 	public Sprite dead;
 	public Sprite idle;
 	public Sprite jumping;
@@ -30,7 +31,7 @@ public class Player2Movement : MonoBehaviour {
 
 	
 	//references
-	public Text leftAction;
+	public Button leftAction;
 	public Rigidbody myRigidbody;
 	public Transform projectileSpawn;
 	public GameObject projectile;
@@ -98,7 +99,8 @@ public class Player2Movement : MonoBehaviour {
 				StartCoroutine(landingAnim());
 				FindObjectOfType<AudioManager>().idleMusic.Play();
 			}
-			leftAction.text = "Jump!";
+		//	leftAction.text = "Jump!";
+			leftAction.GetComponent<Image>().sprite = buttonImages[0];
 
 		}
 		
@@ -161,7 +163,8 @@ public class Player2Movement : MonoBehaviour {
 			playedLandingEffect = false;
 			if (grounded) {
 				FindObjectOfType<AudioManager> ().jump1.Play ();
-				leftAction.text = "Jump Again!";
+			//	leftAction.text = "Jump Again!";
+				leftAction.GetComponent<Image>().sprite = buttonImages[0];
 				hasDoubleJumped = false;
 				hasDived = false;
 				myRigidbody.AddForce (0, jumpHeight, 0);
@@ -170,7 +173,8 @@ public class Player2Movement : MonoBehaviour {
 			} else {
 				if (doubleJump) {
 					StartCoroutine (doubleJumping ());
-					leftAction.text = "Dive!";
+					leftAction.GetComponent<Image>().sprite = buttonImages[1];
+				//	leftAction.text = "Dive!";
 					hasDoubleJumped = true;
 					dive = true;
 					FindObjectOfType<AudioManager> ().jump2.Play ();
