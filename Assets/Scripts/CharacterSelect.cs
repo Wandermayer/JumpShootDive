@@ -18,9 +18,10 @@ public class CharacterSelect : MonoBehaviour {
 	public Sprite[] character1;
 	public Sprite[] character2;
 	public Sprite[] character3;
+	private Sprite[] curSpriteArray;
 	//integers
 	public int currentCharacterIndex;
-	public int arrayNumber;
+	public int arrayNumber = 1;
 	//Booleans
 	bool has1Jumped;
 	bool has2Jumped;
@@ -34,12 +35,15 @@ public class CharacterSelect : MonoBehaviour {
 	public Transform position2;
 	// Use this for initialization
 	void Start () {
+		Debug.Log (arrayNumber);
+		curSpriteArray = character1;
 		infoText.text = "Player 1: Summon your character!";
 		mainCamera.transform.position = position1.position;
 		player1Renderer = player1GO.GetComponentInChildren<SpriteRenderer> ();
 		player2Renderer = player2GO.GetComponentInChildren<SpriteRenderer> ();
 		player1 = player1GO.GetComponent<Rigidbody> ();
 		player2 = player2GO.GetComponent<Rigidbody> ();
+		player1Renderer.sprite = curSpriteArray [0];
 	}
 	
 	// Update is called once per frame
@@ -71,14 +75,18 @@ public class CharacterSelect : MonoBehaviour {
 
 	IEnumerator changeCharacter1(){
 
+		//Debug.Log (arrayNumber);
 		yield return new WaitForSeconds (0.6f);{
 			if(arrayNumber == 1){
 				player1Renderer.sprite = character1[0];
+				curSpriteArray = character1;
 			}else if(arrayNumber == 2){
 				player1Renderer.sprite = character2[0];
+				curSpriteArray = character2;
 
 			}else{
 				player1Renderer.sprite = character3[0];
+				curSpriteArray = character3;
 			}
 
 		}
@@ -88,11 +96,14 @@ public class CharacterSelect : MonoBehaviour {
 		yield return new WaitForSeconds (0.6f);{
 			if(arrayNumber == 1){
 				player2Renderer.sprite = character1[0];
+				curSpriteArray = character1;
 			}else if(arrayNumber == 2){
 				player2Renderer.sprite = character2[0];
+				curSpriteArray = character2;
 				
 			}else{
 				player2Renderer.sprite = character3[0];
+				curSpriteArray = character3;
 			}
 			
 		}
@@ -106,9 +117,9 @@ public class CharacterSelect : MonoBehaviour {
 				arrayNumber++;
 				StartCoroutine(changeCharacter1());
 				player1.velocity = Vector3.zero;
-
 				player1.AddForce(0, 550, 0);
 				FindObjectOfType<AudioManager>().tambo.Play();
+				player1Renderer.sprite = curSpriteArray [1];
 			}
 		}
 	}
@@ -118,6 +129,7 @@ public class CharacterSelect : MonoBehaviour {
 		player1SelectionDone = true;
 		FindObjectOfType<CharacterPrefs>().player1Pref = arrayNumber;
 		infoText.text = "Player 2: Choose you warrior!";
+		player2Renderer.sprite = curSpriteArray [0];
 	}
 
 	public void rightPlayerChange(){
@@ -126,10 +138,10 @@ public class CharacterSelect : MonoBehaviour {
 				has2Jumped = true;
 				StartCoroutine(changeCharacter2());
 				arrayNumber++;
-
 				player2.velocity = Vector3.zero;
 				player2.AddForce(0, 550, 0);
 				FindObjectOfType<AudioManager>().tambo.Play();
+				player2Renderer.sprite = curSpriteArray [1];
 			}
 		}
 	}
