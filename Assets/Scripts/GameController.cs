@@ -26,6 +26,7 @@ public class GameController : MonoBehaviour {
 
 	private GameObject[] player1healths = new GameObject[3];
 	private GameObject[] player2healths = new GameObject[3];
+	private GameObject pauseMenu;
 
 	// Use this for initialization
 	void Start () {
@@ -52,6 +53,9 @@ public class GameController : MonoBehaviour {
 		foreach (GameObject i in player2healths) {
 			i.SetActive (false);
 		}
+
+		pauseMenu = GameObject.FindGameObjectWithTag ("PauseMenu");
+		pauseMenu.SetActive (false);
 	}
 	
 	// Update is called once per frame
@@ -99,11 +103,17 @@ public class GameController : MonoBehaviour {
 
 
 	public void charSelect(){
+		FindObjectOfType<Player1Movement> ().enabled = true;
+		FindObjectOfType<Player2Movement> ().enabled = true;
+		Time.timeScale = 1;
 		SceneManager.LoadScene ("Scene_5");
 	}
 
 	public void restartgame(){
 		//Application.LoadLevel (Application.loadedLevel);
+		Time.timeScale = 1;
+		FindObjectOfType<Player1Movement> ().enabled = true;
+		FindObjectOfType<Player2Movement> ().enabled = true;
 		SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
 	}
 
@@ -120,23 +130,30 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void mainMenu(){
+		FindObjectOfType<Player1Movement> ().enabled = true;
+		FindObjectOfType<Player2Movement> ().enabled = true;
+		Time.timeScale = 1;
 		SceneManager.LoadScene ("MainMenu");
 	}
 
 	public void onPause(){
 		Time.timeScale = 0;
-		FindObjectOfType<Player1Movement> ().canPlayed = false;
-		FindObjectOfType<Player2Movement> ().canPlay = false;
+		pauseMenu.SetActive (true);
+		FindObjectOfType<Player1Movement> ().enabled = false;
+		FindObjectOfType<Player2Movement> ().enabled = false;
 		FindObjectOfType<CanvasGroup> ().alpha = 1;
 		FindObjectOfType<CanvasGroup> ().interactable = true;
 	}
 
 	public void onExitPause(){
-		Time.timeScale = 1;
-		FindObjectOfType<Player1Movement> ().canPlayed = true;
-		FindObjectOfType<Player2Movement> ().canPlay = true;
+		
+
+		FindObjectOfType<Player1Movement> ().enabled = true;
+		FindObjectOfType<Player2Movement> ().enabled = true;
 		FindObjectOfType<CanvasGroup> ().alpha = 0;
 		FindObjectOfType<CanvasGroup> ().interactable = false;
+		pauseMenu.SetActive (false);
+		Time.timeScale = 1;
 	}
 
 
