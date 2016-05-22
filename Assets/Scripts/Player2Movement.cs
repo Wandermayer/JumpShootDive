@@ -2,6 +2,13 @@
 using System.Collections;
 using UnityEngine.UI;
 
+
+public enum BulletClass2{
+	Sword,
+	Double,
+	Fast
+}
+
 public class Player2Movement : MonoBehaviour {
 	//integers
 	public int characterIndexNumber;
@@ -16,6 +23,8 @@ public class Player2Movement : MonoBehaviour {
 	bool hasDoubleJumped;
 	public bool canPlay;
 	public bool isDead;
+	bool doubleShot;
+	bool shootDouble;
 	//sprites
 	public Sprite[] character1;
 	public Sprite[] character2;
@@ -34,13 +43,17 @@ public class Player2Movement : MonoBehaviour {
 	public Button leftAction;
 	public Rigidbody myRigidbody;
 	public Transform projectileSpawn;
-	public GameObject projectile;
+	public GameObject[] projectiles;
 	public GameObject renderSprite;
 	public GameObject flashMuzzle;
 	public ParticleSystem deathEffect;
 	public ParticleSystem landingEffect;
+	GameObject projectile;
 	//Camera
 	public Camera mainCamera;
+
+	//Enums lol
+	public BulletClass2 typeOfBullet;
 
 	// Use this for initialization
 	void Start () {
@@ -52,16 +65,25 @@ public class Player2Movement : MonoBehaviour {
 				jumping = character1 [1];
 				diving = character1 [2];
 				dead = character1 [3];
+				typeOfBullet = BulletClass2.Fast;
+				shootDouble = false;
+				projectile = projectiles [0];
 			} else if (characterIndexNumber == 2) {
 				idle = character2 [0];
 				jumping = character2 [1];
 				diving = character2 [2];
 				dead = character2 [3];
+				typeOfBullet = BulletClass2.Double;
+				shootDouble = true;
+				projectile = projectiles [0];
 			} else {
 				idle = character3 [0];
 				jumping = character3 [1];
 				diving = character3 [2];
 				dead = character3 [3];
+				typeOfBullet = BulletClass2.Sword;
+				shootDouble = false;
+				projectile = projectiles [1];
 			}
 		}
 
@@ -197,11 +219,31 @@ public class Player2Movement : MonoBehaviour {
 	}
 
 	public void Shoot(){
+
+		if (doubleShot == true && !grounded && canPlay && typeOfBullet == BulletClass2.Double) {
+			Debug.Log ("Fire2");
+			StartCoroutine(muzzleFlash());
+			Instantiate(projectile, projectileSpawn.position, projectileSpawn.rotation);
+			if (shootDouble) {
+				FindObjectOfType<Projectile> ().velocity = -0.75f;
+			} //else {
+				//FindObjectOfType<Projectile> ().velocity = -1.5f;
+			//}
+			FindObjectOfType<AudioManager>().gun1.Play();
+			doubleShot = false;
+		}
+
 		if(ammo == true && !grounded && canPlay){
 			Instantiate(projectile, projectileSpawn.position, projectileSpawn.rotation);
 			FindObjectOfType<AudioManager>().gun1.Play();
 			StartCoroutine(muzzleFlash());
+			if (shootDouble) {
+				FindObjectOfType<Projectile> ().velocity = -0.75f;
+			}// else {
+			//	FindObjectOfType<Projectile> ().velocity = -1.5f;
+			//}
 			ammo = false;
+			doubleShot = true;
 		}
 	}
 	

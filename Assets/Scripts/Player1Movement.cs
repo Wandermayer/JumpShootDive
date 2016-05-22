@@ -3,20 +3,30 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+
+public enum BulletClass{
+	Sword,
+	Double,
+	Fast
+}
+
 public class Player1Movement : MonoBehaviour {
 	//Integers
 	public int characterIndexNumber;
 	//booleans 
 	public bool isInPlayed;
+	public bool canPlayed;
+	public bool isDead;
 	bool grounded = true;
 	bool doubleJump = false;
 	bool ammo;
 	bool dive = false;
 	bool hasDived;
 	bool hasDoubleJumped;
-	public bool canPlayed;
-	public bool isDead;
 	bool playedLandingEffect;
+	bool doubleShot;
+	bool shootDouble;
+
 	//sprites
 	public Sprite[] character1;
 	public Sprite[] character2;
@@ -35,7 +45,8 @@ public class Player1Movement : MonoBehaviour {
 	public Button rightAction;
 	public Rigidbody myRigidbody;
 	public Transform projectileSpawn;
-	public GameObject projectile;
+	public GameObject[] projectiles;
+	GameObject projectile;
 	public GameObject muzzleFlash;
 	public GameObject renderSprite;
 	public ParticleSystem deathEffect;
@@ -43,9 +54,13 @@ public class Player1Movement : MonoBehaviour {
 
 	//Camera
 	public Camera mainCamera;
+
+	//Enums lol
+	public BulletClass typeOfBullet;
 	// Use this for initialization
 	void Start () {
 		//canPlayed = true;
+		doubleShot = false;
 		if (canPlayed) {
 			characterIndexNumber = FindObjectOfType<CharacterPrefs> ().player2Pref;
 			if (characterIndexNumber == 1) {
@@ -53,16 +68,26 @@ public class Player1Movement : MonoBehaviour {
 				jumping = character1 [1];
 				diving = character1 [2];
 				dead = character1 [3];
+				typeOfBullet = BulletClass.Fast;
+				shootDouble = false;
+				projectile = projectiles [0];
 			} else if (characterIndexNumber == 2) {
 				idle = character2 [0];
 				jumping = character2 [1];
 				diving = character2 [2];
 				dead = character2 [3];
+				typeOfBullet = BulletClass.Double;
+				shootDouble = true;
+				projectile = projectiles [0];
+			//	Debug.Log ("DOUBLE!");
 			} else {
 				idle = character3 [0];
 				jumping = character3 [1];
 				diving = character3 [2];
 				dead = character3 [3];
+				typeOfBullet = BulletClass.Sword;
+				shootDouble = false;
+				projectile = projectiles [1];
 			}
 		
 		}
@@ -217,12 +242,35 @@ public class Player1Movement : MonoBehaviour {
 	}
 
 	public void Shoot(){
-		if(ammo == true && !grounded && canPlayed){
+
+		if (doubleShot == true && !grounded && canPlayed && typeOfBullet == BulletClass.Double) {
+			Debug.Log ("Fire2");
 			StartCoroutine(MuzzleFlash());
 			Instantiate(projectile, projectileSpawn.position, projectileSpawn.rotation);
+			if (shootDouble) {
+				FindObjectOfType<Projectile> ().velocity = -0.75f;
+			}// else {
+			//	FindObjectOfType<Projectile> ().velocity = -1.5f;
+			//}
+			FindObjectOfType<AudioManager>().gun1.Play();
+			doubleShot = false;
+		}
+		
+		if(ammo == true && !grounded && canPlayed){
+			Debug.Log ("Fire1");
+			StartCoroutine(MuzzleFlash());
+			Instantiate(projectile, projectileSpawn.position, projectileSpawn.rotation);
+			if (shootDouble) {
+				FindObjectOfType<Projectile> ().velocity = -0.75f;
+			}// else {
+			//	FindObjectOfType<Projectile> ().velocity = -1.5f;
+			//}
 			FindObjectOfType<AudioManager>().gun1.Play();
 			ammo = false;
+			doubleShot = true;
 		}
+
+
 	}
 
 		

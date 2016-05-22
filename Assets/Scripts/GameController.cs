@@ -4,6 +4,12 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 
+public enum BulletType{
+	Sword,
+	Double,
+	Fast
+}
+
 public class GameController : MonoBehaviour {
 
 	private Cloud[] clouds;
