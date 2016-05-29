@@ -28,19 +28,25 @@ public class Projectile : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other){
 		FindObjectOfType<AudioManager>().hit1.Play();
-		if (other.tag == "player1Collider" ) {
-			FindObjectOfType<Player2Movement>().isDead = true;
-		//	Debug.Log("Player2 wins!");
-			FindObjectOfType<GameController>().player2Score ++;
-			FindObjectOfType<GameController> ().AddPlayer1DeathIcon (FindObjectOfType<GameController> ().player2Score);
+		if (other.tag == "player1Collider") {
 
+			if (FindObjectOfType<Player2Movement> ().canPlay) {
+				FindObjectOfType<Player2Movement> ().isDead = true;
+				//	Debug.Log("Player2 wins!");
+				FindObjectOfType<GameController> ().player2Score++;
+				FindObjectOfType<GameController> ().AddPlayer1DeathIcon (FindObjectOfType<GameController> ().player2Score);
+
+			}
 		}
 		else{
-			if(other.tag != "Player1" && other.tag == "player2Collider"){
-				FindObjectOfType<Player1Movement>().isDead = true;
+			if (other.tag != "Player1" && other.tag == "player2Collider") {
+
+				if (FindObjectOfType<Player1Movement> ().canPlayed) {
+					FindObjectOfType<Player1Movement> ().isDead = true;
 //				Debug.Log ("Player1 Wins");
-				FindObjectOfType<GameController>().player1Score ++;
-				FindObjectOfType<GameController> ().AddPlayer2DeathIcon (FindObjectOfType<GameController> ().player1Score);
+					FindObjectOfType<GameController> ().player1Score++;
+					FindObjectOfType<GameController> ().AddPlayer2DeathIcon (FindObjectOfType<GameController> ().player1Score);
+				}
 			}
 		}
 	}

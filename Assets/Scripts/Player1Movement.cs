@@ -248,7 +248,7 @@ public class Player1Movement : MonoBehaviour {
 			StartCoroutine(MuzzleFlash());
 			Instantiate(projectile, projectileSpawn.position, projectileSpawn.rotation);
 			if (shootDouble) {
-				FindObjectOfType<Projectile> ().velocity = -0.75f;
+				FindObjectOfType<Projectile> ().velocity = -0.35f;
 			}// else {
 			//	FindObjectOfType<Projectile> ().velocity = -1.5f;
 			//}
@@ -261,7 +261,7 @@ public class Player1Movement : MonoBehaviour {
 			StartCoroutine(MuzzleFlash());
 			Instantiate(projectile, projectileSpawn.position, projectileSpawn.rotation);
 			if (shootDouble) {
-				FindObjectOfType<Projectile> ().velocity = -0.75f;
+				FindObjectOfType<Projectile> ().velocity = -0.35f;
 			}// else {
 			//	FindObjectOfType<Projectile> ().velocity = -1.5f;
 			//}

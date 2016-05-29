@@ -225,7 +225,7 @@ public class Player2Movement : MonoBehaviour {
 			StartCoroutine(muzzleFlash());
 			Instantiate(projectile, projectileSpawn.position, projectileSpawn.rotation);
 			if (shootDouble) {
-				FindObjectOfType<Projectile> ().velocity = -0.75f;
+				FindObjectOfType<Projectile> ().velocity = -0.35f;
 			} //else {
 				//FindObjectOfType<Projectile> ().velocity = -1.5f;
 			//}
@@ -238,7 +238,7 @@ public class Player2Movement : MonoBehaviour {
 			FindObjectOfType<AudioManager>().gun1.Play();
 			StartCoroutine(muzzleFlash());
 			if (shootDouble) {
-				FindObjectOfType<Projectile> ().velocity = -0.75f;
+				FindObjectOfType<Projectile> ().velocity = -0.35f;
 			}// else {
 			//	FindObjectOfType<Projectile> ().velocity = -1.5f;
 			//}

@@ -4,11 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 
-public enum BulletType{
-	Sword,
-	Double,
-	Fast
-}
+
 
 public class GameController : MonoBehaviour {
 
@@ -34,6 +30,8 @@ public class GameController : MonoBehaviour {
 	private GameObject[] player1healths = new GameObject[3];
 	private GameObject[] player2healths = new GameObject[3];
 	private GameObject pauseMenu;
+	private GameObject[] allSwords;
+	private GameObject[] allbullets;
 
 
 	//private Vector3 targetCloud;
@@ -73,6 +71,8 @@ public class GameController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		allSwords = GameObject.FindGameObjectsWithTag ("Sword");
+		allbullets = GameObject.FindGameObjectsWithTag ("Bullet");
 
 
 		if (player1Score >= 3) {
@@ -160,6 +160,18 @@ public class GameController : MonoBehaviour {
 		foreach (Cloud c in clouds) {
 			c.enabled = false;
 		}
+
+		foreach (GameObject r in allSwords) {
+			if (r != null) {
+				r.GetComponent<SamuraiSword> ().enabled = false;
+			}
+		}
+
+		foreach (GameObject r in allbullets) {
+			if (r != null) {
+				r.GetComponent<Projectile> ().enabled = false;
+			}
+		}
 	}
 
 	public void onExitPause(){
@@ -173,6 +185,18 @@ public class GameController : MonoBehaviour {
 		Time.timeScale = 1;
 		foreach (Cloud c in clouds) {
 			c.enabled = true;
+		}
+
+		foreach (GameObject r in allSwords) {
+			if (r != null) {
+				r.GetComponent<SamuraiSword> ().enabled = true;
+			}
+		}
+
+		foreach (GameObject r in allbullets) {
+			if (r != null) {
+				r.GetComponent<Projectile> ().enabled = true;
+			}
 		}
 	}
 
