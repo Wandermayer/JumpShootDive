@@ -231,6 +231,7 @@ public class Player2Movement : MonoBehaviour {
 			//}
 			FindObjectOfType<AudioManager>().gun1.Play();
 			doubleShot = false;
+			ammo = false;
 		}
 
 		if(ammo == true && !grounded && canPlay){

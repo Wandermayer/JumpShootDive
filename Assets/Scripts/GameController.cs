@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 public class GameController : MonoBehaviour {
 
 	private Cloud[] clouds;
-	public Material[] backdrops;
+	public GameObject[] backdrops;
 	public GameObject bg;
 	public bool hasFinishedAnim;
 	public Animator anim;
@@ -39,7 +39,8 @@ public class GameController : MonoBehaviour {
 	void Start () {
 		
 		//bg.GetComponent<Material> ().color = backdrops [Random.Range (0, 3)];
-		bg.GetComponent<Renderer>().material = backdrops[Random.Range(0,3)];
+		//bg.GetComponent<Renderer>().material = backdrops[Random.Range(0,3)];
+		backdrops[Random.Range(0, 2)].SetActive(true);
 	
 		winText.text = " ";
 		anim = GetComponent<Animator> ();
