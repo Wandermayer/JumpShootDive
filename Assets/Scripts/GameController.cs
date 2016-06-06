@@ -133,13 +133,13 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void AddPlayer1DeathIcon(int score){
-		Debug.Log (score);
+//		Debug.Log (score);
 		//GameObject.Find ("Player1Health" + score).SetActive(true);
 		player1healths[score -1].SetActive(true);
 	}
 
 	public void AddPlayer2DeathIcon(int score){
- 		Debug.Log ("Player2Health" + score);
+ 	//	Debug.Log ("Player2Health" + score);
 	//	GameObject.Find ("Player2Health" + score).SetActive(true);
 		player2healths[score -1].SetActive(true);
 	}

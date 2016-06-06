@@ -221,7 +221,7 @@ public class Player2Movement : MonoBehaviour {
 	public void Shoot(){
 
 		if (doubleShot == true && !grounded && canPlay && typeOfBullet == BulletClass2.Double) {
-			Debug.Log ("Fire2");
+		//	Debug.Log ("Fire2");
 			StartCoroutine(muzzleFlash());
 			Instantiate(projectile, projectileSpawn.position, projectileSpawn.rotation);
 			if (shootDouble) {

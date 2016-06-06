@@ -244,7 +244,7 @@ public class Player1Movement : MonoBehaviour {
 	public void Shoot(){
 
 		if (doubleShot == true && !grounded && canPlayed && typeOfBullet == BulletClass.Double) {
-			Debug.Log ("Fire2");
+		//	Debug.Log ("Fire2");
 			StartCoroutine(MuzzleFlash());
 			Instantiate(projectile, projectileSpawn.position, projectileSpawn.rotation);
 			if (shootDouble) {
@@ -258,7 +258,7 @@ public class Player1Movement : MonoBehaviour {
 		}
 		
 		if(ammo == true && !grounded && canPlayed){
-			Debug.Log ("Fire1");
+//			Debug.Log ("Fire1");
 			StartCoroutine(MuzzleFlash());
 			Instantiate(projectile, projectileSpawn.position, projectileSpawn.rotation);
 			if (shootDouble) {

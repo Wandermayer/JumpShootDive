@@ -14,15 +14,19 @@ public class CharacterSelect : MonoBehaviour {
 	SpriteRenderer player2Renderer;
 	public GameObject player2GO;
 	public GameObject player1GO;
+	private GameObject curInfoPanel;
 	//Array
 	public Sprite[] character1;
 	public Sprite[] character2;
 	public Sprite[] character3;
 	private Sprite[] curSpriteArray;
+	public GameObject[] infoPanels;
 	//integers
 	public int currentCharacterIndex;
 	public int arrayNumber = 1;
+	private float transition;
 	//Booleans
+	bool fadeIn = true;
 	bool has1Jumped;
 	bool has2Jumped;
 	bool moveCamera = false;
@@ -35,7 +39,7 @@ public class CharacterSelect : MonoBehaviour {
 	public Transform position2;
 	// Use this for initialization
 	void Start () {
-		Debug.Log (arrayNumber);
+//		Debug.Log (arrayNumber);
 		curSpriteArray = character1;
 		infoText.text = "Player 1: Summon your character!";
 		mainCamera.transform.position = position1.position;
@@ -44,6 +48,7 @@ public class CharacterSelect : MonoBehaviour {
 		player1 = player1GO.GetComponent<Rigidbody> ();
 		player2 = player2GO.GetComponent<Rigidbody> ();
 		player1Renderer.sprite = curSpriteArray [0];
+		curInfoPanel = infoPanels [0];
 	}
 	
 	// Update is called once per frame
@@ -70,6 +75,17 @@ public class CharacterSelect : MonoBehaviour {
 		}
 	
 
+		transition = Mathf.Clamp (transition, 0f, 1f);
+
+		if (fadeIn) {
+			transition += Time.deltaTime;
+		} else {	
+			curInfoPanel.GetComponent<CanvasGroup> ().alpha -= Time.deltaTime;
+			transition -= Time.deltaTime;
+		}
+
+		curInfoPanel.GetComponent<CanvasGroup> ().alpha = transition;
+
 
 	}
 
@@ -80,33 +96,60 @@ public class CharacterSelect : MonoBehaviour {
 			if(arrayNumber == 1){
 				player1Renderer.sprite = character1[0];
 				curSpriteArray = character1;
-			}else if(arrayNumber == 2){
+				StartCoroutine (swapInfoPanels (curInfoPanel, infoPanels [0]));
+				curInfoPanel = infoPanels [0];
+
+				}else if(arrayNumber == 2){
 				player1Renderer.sprite = character2[0];
 				curSpriteArray = character2;
+				StartCoroutine (swapInfoPanels (curInfoPanel, infoPanels [1]));
+				curInfoPanel = infoPanels [1];
 
 			}else{
 				player1Renderer.sprite = character3[0];
 				curSpriteArray = character3;
+				StartCoroutine (swapInfoPanels (curInfoPanel, infoPanels [2]));
+				curInfoPanel = infoPanels [2];
 			}
 
 		}
 	}
+		
 
 	IEnumerator changeCharacter2(){
 		yield return new WaitForSeconds (0.6f);{
 			if(arrayNumber == 1){
 				player2Renderer.sprite = character1[0];
 				curSpriteArray = character1;
+				StartCoroutine (swapInfoPanels (curInfoPanel, infoPanels [0]));
+				curInfoPanel = infoPanels [0];
+
 			}else if(arrayNumber == 2){
 				player2Renderer.sprite = character2[0];
 				curSpriteArray = character2;
+				StartCoroutine (swapInfoPanels (curInfoPanel, infoPanels [1]));
+				curInfoPanel = infoPanels [1];
+
 				
 			}else{
 				player2Renderer.sprite = character3[0];
 				curSpriteArray = character3;
+				StartCoroutine (swapInfoPanels (curInfoPanel, infoPanels [2]));
+				curInfoPanel = infoPanels [2];
 			}
 			
 		}
+	}
+
+	IEnumerator swapInfoPanels(GameObject curInfo, GameObject newInfo){
+		fadeIn = false;
+	
+		//curInfo.SetActive (false);
+		yield return new WaitForSeconds (1f);
+
+		fadeIn = true;
+		newInfo.SetActive (true);
+		curInfo.SetActive (false);
 	}
 
 	public void leftPlayerChange(){
