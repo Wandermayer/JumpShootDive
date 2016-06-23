@@ -41,7 +41,7 @@ public class CharacterSelect : MonoBehaviour {
 	void Start () {
 //		Debug.Log (arrayNumber);
 		curSpriteArray = character1;
-		infoText.text = "Player 1: Summon your character!";
+		infoText.text = "Player 1: Summon your champion!";
 		mainCamera.transform.position = position1.position;
 		player1Renderer = player1GO.GetComponentInChildren<SpriteRenderer> ();
 		player2Renderer = player2GO.GetComponentInChildren<SpriteRenderer> ();
@@ -171,7 +171,7 @@ public class CharacterSelect : MonoBehaviour {
 		moveCamera = true;
 		player1SelectionDone = true;
 		FindObjectOfType<CharacterPrefs>().player1Pref = arrayNumber;
-		infoText.text = "Player 2: Choose you warrior!";
+		infoText.text = "Player 2: Choose your warrior!";
 		player2Renderer.sprite = curSpriteArray [0];
 	}
 

@@ -48,7 +48,16 @@ public class Projectile : MonoBehaviour {
 					FindObjectOfType<GameController> ().AddPlayer2DeathIcon (FindObjectOfType<GameController> ().player1Score);
 				}
 			}
+
+		}
+
+		if (other.tag == "Obstacle") {
+			Destroy (this.gameObject);
 		}
 	}
+
+
+
+
 }
 

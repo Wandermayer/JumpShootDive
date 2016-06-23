@@ -23,6 +23,7 @@ public class GameController : MonoBehaviour {
 	public Text player2Text;
 	public Text winText;
 	public bool isInPlay;
+	public bool gameOver;
 	public GameObject charSelectButton;
 	public GameObject restartButton;
 	public GameObject mainMenuButton;
@@ -67,6 +68,8 @@ public class GameController : MonoBehaviour {
 	//	targetCloud = cloud2Target.position;
 		clouds = FindObjectsOfType<Cloud>();
 
+		gameOver = false;
+
 	}
 
 
@@ -84,7 +87,7 @@ public class GameController : MonoBehaviour {
 			charSelectButton.SetActive(true);
 			mainMenuButton.SetActive(true);
 			winText.text = "Player 1 wins!";
-
+			gameOver = true;
 		} else {
 			if(player2Score >= 3){
 
@@ -94,7 +97,7 @@ public class GameController : MonoBehaviour {
 				restartButton.SetActive (true);
 				mainMenuButton.SetActive(true);
 				winText.text = "Player 2 wins!";
-
+				gameOver = true;
 			}
 		}
 		if (isInPlay) {
@@ -152,25 +155,27 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void onPause(){
-		Time.timeScale = 0;
-		pauseMenu.SetActive (true);
-		FindObjectOfType<Player1Movement> ().canPlayed = false;
-		FindObjectOfType<Player2Movement> ().canPlay = false;
-		FindObjectOfType<CanvasGroup> ().alpha = 1;
-		FindObjectOfType<CanvasGroup> ().interactable = true;
-		foreach (Cloud c in clouds) {
-			c.enabled = false;
-		}
-
-		foreach (GameObject r in allSwords) {
-			if (r != null) {
-				r.GetComponent<SamuraiSword> ().enabled = false;
+		if (!gameOver) {
+			Time.timeScale = 0;
+			pauseMenu.SetActive (true);
+			FindObjectOfType<Player1Movement> ().canPlayed = false;
+			FindObjectOfType<Player2Movement> ().canPlay = false;
+			FindObjectOfType<CanvasGroup> ().alpha = 0.8f;
+			FindObjectOfType<CanvasGroup> ().interactable = true;
+			foreach (Cloud c in clouds) {
+				c.enabled = false;
 			}
-		}
 
-		foreach (GameObject r in allbullets) {
-			if (r != null) {
-				r.GetComponent<Projectile> ().enabled = false;
+			foreach (GameObject r in allSwords) {
+				if (r != null) {
+					r.GetComponent<SamuraiSword> ().enabled = false;
+				}
+			}
+
+			foreach (GameObject r in allbullets) {
+				if (r != null) {
+					r.GetComponent<Projectile> ().enabled = false;
+				}
 			}
 		}
 	}

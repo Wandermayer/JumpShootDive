@@ -58,6 +58,10 @@ public class SamuraiSword : MonoBehaviour {
 				}
 			}
 		}
+
+		if (other.tag == "Obstacle") {
+			Destroy (this.gameObject);
+		}
 	}
 
 }
