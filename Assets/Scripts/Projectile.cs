@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Projectile : MonoBehaviour {
 	public bool facingRight;
-	float velocity = -2;
+	public float velocity = -1.5f;
 	float lifeTime = 3f;
 
 	// Use this for initialization
@@ -12,6 +12,8 @@ public class Projectile : MonoBehaviour {
 			velocity = -velocity;
 		}
 		Destroy (gameObject, lifeTime);
+
+
 
 	}
 	
@@ -26,18 +28,36 @@ public class Projectile : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other){
 		FindObjectOfType<AudioManager>().hit1.Play();
-		if (other.tag == "player1Collider" ) {
-			FindObjectOfType<Player2Movement>().isDead = true;
-			Debug.Log("Player2 wins!");
-			FindObjectOfType<GameController>().player2Score ++;
-		}
-		else{
-			if(other.tag != "Player1"){
-				FindObjectOfType<Player1Movement>().isDead = true;
-				Debug.Log ("Player1 Wins");
-				FindObjectOfType<GameController>().player1Score ++;
+		if (other.tag == "player1Collider") {
+
+			if (FindObjectOfType<Player2Movement> ().canPlay) {
+				FindObjectOfType<Player2Movement> ().isDead = true;
+				//	Debug.Log("Player2 wins!");
+				FindObjectOfType<GameController> ().player2Score++;
+				FindObjectOfType<GameController> ().AddPlayer1DeathIcon (FindObjectOfType<GameController> ().player2Score);
+
 			}
 		}
+		else{
+			if (other.tag != "Player1" && other.tag == "player2Collider") {
+
+				if (FindObjectOfType<Player1Movement> ().canPlayed) {
+					FindObjectOfType<Player1Movement> ().isDead = true;
+//				Debug.Log ("Player1 Wins");
+					FindObjectOfType<GameController> ().player1Score++;
+					FindObjectOfType<GameController> ().AddPlayer2DeathIcon (FindObjectOfType<GameController> ().player1Score);
+				}
+			}
+
+		}
+
+		if (other.tag == "Obstacle") {
+			Destroy (this.gameObject);
+		}
 	}
+
+
+
+
 }
 

@@ -1,0 +1,195 @@
+fileFormatVersion: 2
+guid: 554db2c4103d8304ab5d3098019b9ebf
+timeCreated: 1466635739
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: DayForegroundSprites_0
+    21300002: DayForegroundSprites_1
+    21300004: DayForegroundSprites_2
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 200
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: DayForegroundSprites_0
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 78
+        width: 1275
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 209.936, y: -97.063995}
+        - {x: 298.936, y: -97.063995}
+        - {x: 327.936, y: -96.063995}
+        - {x: 327.936, y: -69.063995}
+        - {x: 315.936, y: -54.063995}
+        - {x: 284.936, y: -13.063995}
+        - {x: 303.936, y: 61.936005}
+        - {x: 276.936, y: 92.936005}
+        - {x: 268.936, y: 94.936005}
+        - {x: 209.936, y: 37.936005}
+        - {x: 131.936, y: 58.936005}
+        - {x: 123.936005, y: 91.936005}
+        - {x: 104.936005, y: 97.936005}
+        - {x: 77.936005, y: 74.936005}
+        - {x: 67.936005, y: 62.936005}
+        - {x: -74.063995, y: 52.936005}
+        - {x: -152.064, y: 98.936005}
+        - {x: -173.064, y: 98.936005}
+        - {x: -189.064, y: 80.936005}
+        - {x: -194.064, y: -54.063995}
+        - {x: -324.064, y: -73.063995}
+        - {x: -326.064, y: -80.063995}
+        - {x: -326.064, y: -87.063995}
+        - {x: -312.064, y: -97.063995}
+        - {x: -130.064, y: -97.063995}
+        - {x: -128.064, y: -90.063995}
+        - {x: 102.936005, y: -92.063995}
+        - {x: 176.936, y: -76.063995}
+    - name: DayForegroundSprites_1
+      rect:
+        serializedVersion: 2
+        x: 1636
+        y: 0
+        width: 717
+        height: 1079
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 113.63202, y: -269.5}
+        - {x: 127.63202, y: -273.5}
+        - {x: 144.63202, y: -261.5}
+        - {x: 147.63202, y: -216.5}
+        - {x: 179.63202, y: -204.5}
+        - {x: 184.63202, y: -193.5}
+        - {x: 184.63202, y: -167.5}
+        - {x: 170.63202, y: -159.5}
+        - {x: 157.63202, y: -115.5}
+        - {x: 159.63202, y: -106.5}
+        - {x: 161.63202, y: -89.5}
+        - {x: 162.63202, y: -78.5}
+        - {x: 158.63202, y: -62.5}
+        - {x: 145.63202, y: -25.5}
+        - {x: 149.63202, y: -19.5}
+        - {x: 159.63202, y: 9.5}
+        - {x: 152.63202, y: 74.5}
+        - {x: 135.63202, y: 95.5}
+        - {x: 149.63202, y: 177.5}
+        - {x: 151.63202, y: 212.5}
+        - {x: 144.63202, y: 220.5}
+        - {x: 128.63202, y: 230.5}
+        - {x: 54.63202, y: 225.5}
+        - {x: 49.63202, y: 260.5}
+        - {x: 45.63202, y: 276.5}
+        - {x: -13.367981, y: 276.5}
+        - {x: -17.367981, y: 270.5}
+        - {x: -20.367981, y: 224.5}
+        - {x: -32.36798, y: 227.5}
+        - {x: -82.36798, y: 238.5}
+        - {x: -96.36798, y: 221.5}
+        - {x: -94.36798, y: 172.5}
+        - {x: -92.36798, y: 142.5}
+        - {x: -118.36798, y: 95.5}
+        - {x: -122.36798, y: 58.5}
+        - {x: -112.36798, y: 4.5}
+        - {x: -97.36798, y: -41.5}
+        - {x: -124.36798, y: -49.5}
+        - {x: -139.36798, y: -62.5}
+        - {x: -143.36798, y: -107.5}
+        - {x: -142.36798, y: -128.5}
+        - {x: -170.36798, y: -152.5}
+        - {x: -183.36798, y: -165.5}
+        - {x: -183.36798, y: -182.5}
+        - {x: -142.36798, y: -209.5}
+        - {x: -142.36798, y: -256.5}
+        - {x: -137.36798, y: -268.5}
+        - {x: -111.36798, y: -260.5}
+        - {x: -100.36798, y: -247.5}
+        - {x: -31.367981, y: -276.5}
+        - {x: -4.367981, y: -276.5}
+        - {x: 12.632019, y: -268.5}
+        - {x: 65.63202, y: -236.5}
+        - {x: 103.63202, y: -241.5}
+    - name: DayForegroundSprites_2
+      rect:
+        serializedVersion: 2
+        x: 3257
+        y: 38
+        width: 637
+        height: 994
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 137.0841, y: 255.456}
+        - {x: 28.084106, y: 255.456}
+        - {x: -84.91589, y: 239.456}
+        - {x: -101.91589, y: 233.456}
+        - {x: -105.91589, y: 156.456}
+        - {x: -90.91589, y: 153.456}
+        - {x: -85.91589, y: 65.45599}
+        - {x: -64.91589, y: 4.4559937}
+        - {x: -51.915894, y: 1.4559937}
+        - {x: -12.915894, y: 13.455994}
+        - {x: 4.0841064, y: -173.544}
+        - {x: 6.0841064, y: -191.544}
+        - {x: -39.915894, y: -190.544}
+        - {x: -154.9159, y: -229.544}
+        - {x: -162.9159, y: -238.544}
+        - {x: -162.9159, y: -251.544}
+        - {x: -161.9159, y: -254.544}
+        - {x: 164.0841, y: -254.544}
+        - {x: 164.0841, y: -153.544}
+        - {x: 138.0841, y: -75.54401}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
